@@ -1,0 +1,31 @@
+plugins {
+        id 'application'
+        id 'jacoco'
+}
+
+application {
+    mainClass = 'eirb.pg203.Main'
+}
+
+repositories {
+        mavenCentral()
+}
+
+dependencies {
+        testImplementation(platform('org.junit:junit-bom:5.11.2'))
+        testImplementation('org.junit.jupiter:junit-jupiter')
+        testRuntimeOnly('org.junit.platform:junit-platform-launcher')
+}
+
+test {
+        useJUnitPlatform()
+        testLogging {
+                events "passed", "skipped", "failed"
+        }
+}
+
+jar {
+        manifest {
+                attributes 'Main-Class': application.mainClass
+        }
+}
