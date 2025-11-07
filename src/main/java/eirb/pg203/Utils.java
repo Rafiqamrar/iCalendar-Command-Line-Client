@@ -18,28 +18,4 @@ public class Utils {
       }
   }
 
-  // this keeps the BEGIN:VEVENT and END:VEVENT , in case we need it later.  
-  public static List<String> fileToChunks(Path path) {
-    List<String> l = Utils.loadLines(path);
-    List<String> chunks = new ArrayList<>();
-    String temp = "";
-    Boolean start = false;
-    for(String line : l){
-      if(line.startsWith("BEGIN:VEVENT")){
-        start = true;
-      }
-      
-      // 'if' here to add the "BEGIN:VEVENT" 
-      if(start){
-        temp = (temp == "" ? "" : temp + "\n") + line;
-      }
-
-      // 'if' here to add the "END:VEVENT" 
-      if(line.startsWith("END:VEVENT")){
-        chunks.add(temp);
-        temp = ""; // restart
-      }
-    }
-    return chunks;
-  }
 }

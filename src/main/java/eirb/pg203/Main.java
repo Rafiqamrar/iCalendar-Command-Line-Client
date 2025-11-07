@@ -33,7 +33,7 @@ public class Main {
 
     // prints the first chunk of "i2.ics" as a String
     public static void ptitTestfileToChunks(){
-        String chunk = Utils.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
+        String chunk = Parser.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
         
         System.out.println("\n--- VEVENT chunk ---");
         System.out.println(chunk);
@@ -42,7 +42,7 @@ public class Main {
 
     // parses the first chunk of "i2.ics" and prints it
     public static void ptitTestparseChunk(){
-        String chunk = Utils.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
+        String chunk = Parser.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
         Map<String,String> map = Parser.parseChunk(chunk);
         
         System.out.println("\n--- parsed VEVENT chunk ---");
