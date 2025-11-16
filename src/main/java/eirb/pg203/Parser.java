@@ -7,33 +7,26 @@ import java.util.List;
 import java.util.Map;
 
 public class Parser {
-  
-  // this keeps the BEGIN:VEVENT and END:VEVENT , in case we need it later.  
-  public static List<String> fileToChunks(Path path) {
+
+  // this will add only 'BEGIN:VEVENT' to all chunks, cuz 'END:VEVENT' doesnt matter
+  // !! first 'chunk' is for info about the calender starting with 'BEGIN:VCALENDR'
+  private static List<String> fileToChunks(Path path) {
     List<String> l = Utils.loadLines(path);
     List<String> chunks = new ArrayList<>();
     String temp = "";
-    Boolean start = false;
     for(String line : l){
       if(line.startsWith("BEGIN:VEVENT")){
-        start = true;
-      }
-      
-      // 'if' here to add the "BEGIN:VEVENT" 
-      if(start){
-        temp = (temp == "" ? "" : temp + "\n") + line;
-      }
-
-      // 'if' here to add the "END:VEVENT" 
-      if(line.startsWith("END:VEVENT")){
         chunks.add(temp);
-        temp = ""; // restart
+        temp = "";
       }
+      if(line.startsWith("END:")) continue;
+      temp = (temp.isEmpty() ? temp : temp + "\n") + line;
     }
     return chunks;
   }
   
-  public static List<Map<String,String>> parse(List<String> chunks) {
+  public static List<Map<String,String>> parse(Path path) {
+    List<String> chunks = fileToChunks(path);
     List<Map<String,String>> maps = new ArrayList<>();
     for(String chunk : chunks){
       maps.add(Parser.parseChunk(chunk));
@@ -41,7 +34,7 @@ public class Parser {
     return maps;
   }
 
-  public static Map<String, String> parseChunk(String chunk) {
+  private static Map<String, String> parseChunk(String chunk) {
     Map<String, String> map = new HashMap<>();
     String[] lines = chunk.split("\n");
 
@@ -74,7 +67,7 @@ public class Parser {
     return map;
   }
 
-  public static boolean isKey(String s) {
+  private static boolean isKey(String s) {
     return s != null && s.matches("[A-Z-]+");
   }
 }
