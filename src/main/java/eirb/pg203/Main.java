@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -23,36 +21,9 @@ public class Main {
     }
 
     public static void ptitTest(String[] args){
-        Calender c = Factory.calender(Path.of(args[0]));
+        Parser p = new Parser();
+        Calender c = p.parse(Path.of(args[0]));
         c.display(args[1].substring(0, args[1].length()-1).toUpperCase());
     }
 
-    // public static void ptitTestLoadLines(){
-    //     List<String> l = Utils.loadLines(Path.of("src", "test", "resources", "i2.ics")).subList(0, 5);
-    //     for(String line : l ){
-    //         System.out.println(line);
-    //     }
-    // }
-
-    // // prints the first chunk of "i2.ics" as a String
-    // public static void ptitTestfileToChunks(){
-    //     String chunk = Parser.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
-        
-    //     System.out.println("\n--- VEVENT chunk ---");
-    //     System.out.println(chunk);
-    //     System.out.println("---------------------\n");
-    // }
-
-    // // parses the first chunk of "i2.ics" and prints it
-    // public static void ptitTestparseChunk(){
-    //     String chunk = Parser.fileToChunks(Path.of("src", "test", "resources", "i2.ics")).get(0);
-    //     Map<String,String> map = Parser.parseChunk(chunk);
-        
-    //     System.out.println("\n--- parsed VEVENT chunk ---");
-    //     for (Map.Entry<String, String> entry : map.entrySet()) {
-    //         System.out.println(entry.getKey() + ":" + entry.getValue());
-    //     }
-    //     System.out.println("---------------------\n");
-    // }
-    // no need to test Parser.parse since it does the same thing basically
 }

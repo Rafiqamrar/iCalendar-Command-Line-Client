@@ -1,7 +1,6 @@
 package eirb.pg203;
 import java.util.List;
 import java.util.Map;
-import java.nio.file.Path;
 
 public class Factory {
     public static CalElement calElement(Map<String, String> map) {
@@ -9,17 +8,16 @@ public class Factory {
 
         switch (type) {
             case "VEVENT" : return new Event(map);
+            case "VTODO" : return new Event(map);
             default : throw new IllegalArgumentException("Unknown type: " + type);
         }
     }
 
-    public static Calender calender(Path path) {
-        List<Map<String, String>> parsedChunks = Parser.parse(path);
+    public static Calender calender(List<Map<String,String>> maps) {
+        Map<String, String> header = maps.get(0);
 
-
-        Map<String, String> header = parsedChunks.get(0);
-
-        List<CalElement> els =parsedChunks.subList(1, 3)
+        // List<CalElement> els =maps.subList(1, maps.size()) 
+        List<CalElement> els =maps.subList(1, 3) // 3 here to limit number of maps for testing!
                         .stream()
                         .map(Factory::calElement)
                         .toList();

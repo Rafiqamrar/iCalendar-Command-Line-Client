@@ -10,6 +10,7 @@ public class Event implements CalElement{
     this.fields = (m == null) ? new HashMap<>() : new HashMap<>(m);
   }
 
+  
   public String type(){
     return _type;
   }

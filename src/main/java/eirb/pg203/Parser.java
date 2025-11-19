@@ -6,16 +6,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Parser {
+public class Parser implements IcsParser{
 
-  // this will add only 'BEGIN:VEVENT' to all chunks, cuz 'END:VEVENT' doesnt matter
+  // this will add only 'BEGIN:*' to all chunks, cuz 'END:*' doesnt matter
   // !! first 'chunk' is for info about the calender starting with 'BEGIN:VCALENDR'
-  private static List<String> fileToChunks(Path path) {
+  private List<String> fileToChunks(Path path) {
     List<String> l = Utils.loadLines(path);
     List<String> chunks = new ArrayList<>();
     String temp = "";
     for(String line : l){
-      if(line.startsWith("BEGIN:VEVENT")){
+      if(line.startsWith("BEGIN:") && !temp.isEmpty()) {
         chunks.add(temp);
         temp = "";
       }
@@ -25,16 +25,7 @@ public class Parser {
     return chunks;
   }
   
-  public static List<Map<String,String>> parse(Path path) {
-    List<String> chunks = fileToChunks(path);
-    List<Map<String,String>> maps = new ArrayList<>();
-    for(String chunk : chunks){
-      maps.add(Parser.parseChunk(chunk));
-    }
-    return maps;
-  }
-
-  private static Map<String, String> parseChunk(String chunk) {
+  private Map<String, String> parseChunk(String chunk) {
     Map<String, String> map = new HashMap<>();
     String[] lines = chunk.split("\n");
 
@@ -46,7 +37,7 @@ public class Parser {
         int colonIndex = l.indexOf(':');
         if (colonIndex != -1) {
             String possibleKey = l.substring(0, colonIndex);
-            if (Parser.isKey(possibleKey)) {
+            if (this.isKey(possibleKey)) {
                 // if theres already a key saved : put it in map first
                 if (currKey != null) {
                     map.put(currKey, currVal.toString());
@@ -67,7 +58,17 @@ public class Parser {
     return map;
   }
 
-  private static boolean isKey(String s) {
-    return s != null && s.matches("[A-Z-]+");
+  private boolean isKey(String s) {
+    return s != null && s.matches("[A-Z-;]+"); // added ';' bc its part of the keys in todos
   }
+
+  public Calender parse(Path path){
+    List<String> chunks = fileToChunks(path);
+    List<Map<String,String>> maps = new ArrayList<>();
+    for(String chunk : chunks){
+      maps.add(this.parseChunk(chunk));
+    }
+    return Factory.calender(maps);
+  }
+
 }
