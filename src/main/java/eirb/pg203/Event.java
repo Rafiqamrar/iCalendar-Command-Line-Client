@@ -1,24 +1,56 @@
 package eirb.pg203;
+
 import java.util.Map;
-import java.util.HashMap;
 
-public class Event implements CalElement{
-  private final Map<String,String> fields;
-  private final String _type = "EVENT";
+public class Event extends CalElement {
 
-  Event(Map<String,String> m){
-    this.fields = (m == null) ? new HashMap<>() : new HashMap<>(m);
-  }
-
-  
-  public String type(){
-    return _type;
-  }
-  public void display() {
-    System.out.println("\n--- begin [ "+ fields.get("BEGIN") + " ] display -----");
-    for (Map.Entry<String, String> entry : this.fields.entrySet()) {
-      System.out.println(entry.getKey() + ":" + entry.getValue());
+    public Event(Map<String,String> m){
+        super(m);
     }
-    System.out.println("--- end [ "+ fields.get("BEGIN") + " ] display -----");
-  }
+
+
+    // --- Getters ---
+    public String getStart() {
+        return get("DTSTART");
+    }
+
+    public String getEnd() {
+        return get("DTEND");
+    }
+
+    public String getSummary() {
+        return get("SUMMARY");
+    }
+
+    public String getLocation() {
+        return get("LOCATION");
+    }
+
+    public String getDescription() {
+        return get("DESCRIPTION");
+    }
+    @Override
+    public ViewType viewType() {
+        return ViewType.EVENTS;
+    }
+
+    @Override
+    public String toString() {
+        return """
+        [EVENT]
+        Summary     : %s
+        Start       : %s
+        End         : %s
+        Location    : %s
+        UID         : %s
+        Description : %s
+        """.formatted(
+                getSummary(),
+                getStart(),
+                getEnd(),
+                getLocation(),
+                getUid(),
+                getDescription()
+        );
+    }
 }

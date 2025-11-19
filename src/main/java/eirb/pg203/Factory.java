@@ -8,7 +8,7 @@ public class Factory {
 
         switch (type) {
             case "VEVENT" : return new Event(map);
-            case "VTODO" : return new Event(map);
+            case "VTODO" : return new Todo(map);
             default : throw new IllegalArgumentException("Unknown type: " + type);
         }
     }
@@ -17,10 +17,10 @@ public class Factory {
         Map<String, String> header = maps.get(0);
 
         // List<CalElement> els =maps.subList(1, maps.size()) 
-        List<CalElement> els =maps.subList(1, 3) // 3 here to limit number of maps for testing!
-                        .stream()
-                        .map(Factory::calElement)
-                        .toList();
+    List<CalElement> els = maps.subList(1, maps.size())
+        .stream()
+        .map(Factory::calElement)
+        .toList();
 
         return new Calender(header, els);
     }

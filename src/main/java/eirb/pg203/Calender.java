@@ -13,6 +13,8 @@ public class Calender {
     this.fields = (f == null) ? new HashMap<>() : new HashMap<>(f);
     this.list = (els == null) ? new ArrayList<>() : new ArrayList<>(els);
   }
+
+  /*
   public void display(String type){
     System.out.println("\n--- begin ["+ fields.get("BEGIN") + " : "+ type +" ] display -----");
     
@@ -26,5 +28,18 @@ public class Calender {
         el.display();
     }
     System.out.println("\n--- end ["+ fields.get("BEGIN") + " : "+ type +" ] display -----");
-  }
+  }*/
+
+
+
+  public List<CalElement> get(ViewType type) {
+    List<CalElement> res = new ArrayList<>();
+    for (CalElement el : list) {
+        if (el.viewType() == type) {
+            res.add(el);
+        }
+    }
+    return res;
+}
+
 }
