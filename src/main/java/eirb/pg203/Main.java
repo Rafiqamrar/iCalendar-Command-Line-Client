@@ -19,8 +19,19 @@ public class Main {
 
         String path = args[0];
         String mode = args[1].toUpperCase();
-        String option = (args.length >= 3) ? args[2] : null;
-        String date = (args.length == 4) ? args[3] : null;
+        String option;
+        if (args.length >= 3 && args.length <= 4) {
+            option = args[2];
+        }
+        else if(args.length > 4 && args[2].equals("-from") && args[4].equals("-to")){
+            option = "fromto";
+        }
+        else{
+            option = null;
+        }
+        String date1 = (args.length >= 4) ? args[3] : null;
+        String date2 = (args.length == 6) ? args[5] : null;
+
 
         // Vérification du mode
         ViewType viewType;
@@ -48,7 +59,7 @@ public class Main {
 
                 OptionsEvent ev = new OptionsEvent();
 
-                List<Event> filtered = ev.filter(option, events, date);
+                List<Event> filtered = ev.filter(option, events, date1, date2);
 
                 elements = List.copyOf(filtered);
 
