@@ -20,6 +20,7 @@ public class Main {
         String path = args[0];
         String mode = args[1].toUpperCase();
         String option = (args.length >= 3) ? args[2] : null;
+        String date = (args.length == 4) ? args[3] : null;
 
         // Vérification du mode
         ViewType viewType;
@@ -47,7 +48,7 @@ public class Main {
 
                 OptionsEvent ev = new OptionsEvent();
 
-                List<Event> filtered = ev.filter(option, events);
+                List<Event> filtered = ev.filter(option, events, date);
 
                 elements = List.copyOf(filtered);
 

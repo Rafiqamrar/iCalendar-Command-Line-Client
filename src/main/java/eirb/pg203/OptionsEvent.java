@@ -7,7 +7,7 @@ import java.util.List;
 public class OptionsEvent extends Options<Event>{
 
     @Override
-    public List<Event> filter(String type, List<Event> elements){
+    public List<Event> filter(String type, List<Event> elements, String Date){
         List<Event> res = new ArrayList<>();
 
         switch (type.toLowerCase()) {
@@ -52,6 +52,36 @@ public class OptionsEvent extends Options<Event>{
                         LocalDate date = Utils.dateGetter(start);
 
                         if (date.equals(tmrw)) {
+                            res.add(event);
+                        }
+                    }
+                }
+            }
+            case "-from" -> {
+                LocalDate from = Utils.dateGetter(Date);
+
+                for (Event event: elements){
+                    String start = event.getStart();
+
+                    if (from != null){
+                        LocalDate date = Utils.dateGetter(start);
+
+                        if (date.isAfter(from)){
+                            res.add(event);
+                        }
+                    }
+                }
+            }
+            case "-to" -> {
+                LocalDate from = Utils.dateGetter(Date);
+
+                for (Event event: elements){
+                    String start = event.getStart();
+
+                    if (from != null){
+                        LocalDate date = Utils.dateGetter(start);
+
+                        if (date.isBefore(from)){
                             res.add(event);
                         }
                     }
