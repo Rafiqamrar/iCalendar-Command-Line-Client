@@ -4,7 +4,7 @@ import java.util.Map;
 
 public abstract class CalElement {
 
-    protected final Map<String, String> fields;
+    
 
     protected CalElement(Map<String,String> map){
         this.fields = map;
