@@ -59,7 +59,7 @@ public class Parser implements IcsParser{
   }
 
   private boolean isKey(String s) {
-    return s != null && s.matches("[A-Z-;]+"); // added ';' bc its part of the keys in todos
+    return s != null && s.matches("[A-Z-;a-z\"]+"); // added ';' bc its part of the keys in todos
   }
 
   public Calender parse(Path path){

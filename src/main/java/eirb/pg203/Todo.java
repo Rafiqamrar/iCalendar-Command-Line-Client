@@ -9,22 +9,21 @@ public class Todo extends CalElement {
     //     super(m);
     // }
 
-    final private String UID ; 
-    final private String SUMMARY ;
-    final private String LOCATION ;
-    final private String STATUS ;
-    final private String PERCENT_COMPLETE ;
-    final private Number DUE ;
-    final private String CLASS ; 
-    final private Number PRIORITY ;
-    final private LocalDate LAST_MODIFIED ;
-    final private LocalDate DTSTAMP ;
-    final private Number SEQUENCE ;
-    final private String ORGANIZER_name  ;
-    final private String ORGANIZER_mail  ;
-    final private ViewType type;
+    final private String UID;
+    final private String SUMMARY;
+    final private String LOCATION;
+    final private String STATUS;
+    final private String PERCENT_COMPLETE;
+    final private Number DUE;
+    final private String CLASS;
+    final private Number PRIORITY;
+    final private LocalDate LAST_MODIFIED;
+    final private LocalDate DTSTAMP;
+    final private Number SEQUENCE;
+    final private String ORGANIZER_name;
+    final private String ORGANIZER_mail;
 
-    Todo(String uid, String summary, String location, String status, String percent_complete, Number due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail, ViewType type) {
+    public Todo(String uid, String summary, String location, String status, String percent_complete, Number due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail) {
         this.UID = uid; 
         this.SUMMARY = summary;
         this.LOCATION = location;
@@ -38,11 +37,10 @@ public class Todo extends CalElement {
         this.SEQUENCE = sequence;
         this.ORGANIZER_name = organizer_name;
         this.ORGANIZER_mail = organizer_mail;
-        this.type = type;
     }
 
     public ViewType viewType(){
-        return this.type;
+        return ViewType.TODOS;
     }
 
 
