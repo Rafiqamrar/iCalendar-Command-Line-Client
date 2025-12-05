@@ -1,6 +1,7 @@
 package eirb.pg203;
 
 import java.util.Map;
+import java.time.LocalDate;
 
 public class Todo extends CalElement {
 
@@ -21,8 +22,9 @@ public class Todo extends CalElement {
     final private Number SEQUENCE ;
     final private String ORGANIZER_name  ;
     final private String ORGANIZER_mail  ;
+    final private ViewType type;
 
-    Todo(String uid, String summary, String location, String status, String percent_complete, Number due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail) {
+    Todo(String uid, String summary, String location, String status, String percent_complete, Number due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail, ViewType type) {
         this.UID = uid; 
         this.SUMMARY = summary;
         this.LOCATION = location;
@@ -36,7 +38,11 @@ public class Todo extends CalElement {
         this.SEQUENCE = sequence;
         this.ORGANIZER_name = organizer_name;
         this.ORGANIZER_mail = organizer_mail;
-        
+        this.type = type;
+    }
+
+    public ViewType viewType(){
+        return this.type;
     }
 
 
