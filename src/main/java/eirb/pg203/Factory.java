@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.time.LocalDate;
 import java.util.ArrayList;
 public class Factory {
-    public static Todo MakeTodo(Map<String, String> maps){
+    public static Todo makeTodo(Map<String, String> maps){
         String UID=null;
         String SUMMARY=null;
         String LOCATION=null;
@@ -44,7 +44,7 @@ public class Factory {
 
         switch (type) {
             case "VEVENT" : return new Event(map);
-            case "VTODO" : return new Todo(map);
+            case "VTODO" : return makeTodo(map);
             default : throw new IllegalArgumentException("Unknown type: " + type);
         }
     }

@@ -21,7 +21,7 @@ class ParserContentTest {
         assertNotNull(calender, "Le calendrier ne devrait pas être null");
         
         List<CalElement> todos = calender.get(ViewType.TODOS);
-        assertEquals(1, todos.size(), "Devrait avoir 1 TODO");
+        assertEquals(1, todos.size(), "Devrait avoir 1 TODO " + file);
         
         Todo todo = (Todo) todos.get(0);
         assertEquals("simple-todo-123", todo.getUid(), "UID incorrect");
