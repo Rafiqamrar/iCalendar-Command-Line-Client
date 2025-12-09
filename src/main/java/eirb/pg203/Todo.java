@@ -4,11 +4,6 @@ import java.util.Map;
 import java.time.LocalDate;
 
 public class Todo extends CalElement {
-
-    // public Todo(Map<String,String> m){
-    //     super(m);
-    // }
-
     final private String UID;
     final private String SUMMARY;
     final private String LOCATION;
@@ -44,30 +39,89 @@ public class Todo extends CalElement {
     }
 
 
+    
+    public String getUid() {
+        return UID;
+    }
 
+    public String getSummary() {
+        return SUMMARY;
+    }
 
+    public String getLocation() {
+        return LOCATION;
+    }
 
+    public String getStatus() {
+        return STATUS;
+    }
 
-    // @Override
-    // public String toString() {
-    //     // return """
-    //     // [TODO]
-    //     // Summary     : %s
-    //     // Status      : %s
-    //     // Percent     : %s%%
-    //     // Due         : %s
-    //     // Location    : %s
-    //     // UID         : %s
-    //     // """.formatted(
-    //     //         getSummary(),
-    //     //         getStatus(),
-    //     //         getPercent(),
-    //     //         getDue(),
-    //     //         getLocation(),
-    //     //         getUid()
-    //     // );
+    public String getPercentComplete() {
+        return PERCENT_COMPLETE;
+    }
 
+    public Number getDue() {
+        return DUE;
+    }
 
-    //     /System.out.println("i'm todo") ; 
-    // }
+    public String getTClass() {
+        return CLASS;
+    }
+
+    public Number getPriority() {
+        return PRIORITY;
+    }
+
+    public LocalDate getLastModified() {
+        return LAST_MODIFIED;
+    }
+
+    public LocalDate getDtStamp() {
+        return DTSTAMP;
+    }
+
+    public Number getSequence() {
+        return SEQUENCE;
+    }
+
+    public String getOrganizerName() {
+        return ORGANIZER_name;
+    }
+    public String getOrganizerMail() {
+        return ORGANIZER_mail;
+    }
+
+    
+    @Override
+    public String toString() {
+        return """
+                [TODO] ===========
+                Summary       : %s
+                Status        : %s
+                Percent       : %s
+                Due           : %s
+                Location      : %s
+                UID           : %s
+                Class         : %s
+                Priority      : %s
+                LastModified  : %s
+                DTStamp       : %s
+                Sequence      : %s
+                OrganizerName : %s
+                OrganizerMail : %s
+                """.formatted(
+                getSummary(),
+                getStatus(),
+                getPercentComplete(),
+                getDue(),
+                getLocation(),
+                getUid(),
+                getTClass(),
+                getPriority(),
+                getLastModified(),
+                getDtStamp(),
+                getSequence(),
+                getOrganizerName(),
+                getOrganizerMail());
+    }
 }

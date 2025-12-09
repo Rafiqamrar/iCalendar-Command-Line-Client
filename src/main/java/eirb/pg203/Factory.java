@@ -39,11 +39,33 @@ public class Factory {
                 ORGANIZER_mail);
     }
 
+    public static Event makeEvent(Map<String, String> maps) {
+        String UID = null;
+        String SUMMARY = null;
+        String LOCATION = null;
+        LocalDate LAST_MODIFIED = null;
+        LocalDate DTSTAMP = null;
+        LocalDate DTSTART = null;
+        LocalDate DTEND = null;
+        LocalDate CREATED = null;
+        String DESCRIPTION = null;
+        return new Event(
+                UID,
+                SUMMARY,
+                LOCATION,
+                LAST_MODIFIED,
+                DTSTAMP,
+                DTSTART,
+                DTEND,
+                CREATED,
+                DESCRIPTION);
+    }
+
     public static CalElement calElement(Map<String, String> map) {
         String type = map.get("BEGIN");
 
         switch (type) {
-            case "VEVENT" : return new Event(map);
+            case "VEVENT" : return makeEvent(map);
             case "VTODO" : return makeTodo(map);
             default : throw new IllegalArgumentException("Unknown type: " + type);
         }

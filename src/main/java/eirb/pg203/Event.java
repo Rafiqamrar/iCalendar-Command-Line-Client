@@ -1,56 +1,105 @@
 package eirb.pg203;
 
+import java.time.LocalDate;
 import java.util.Map;
 
 public class Event extends CalElement {
 
-    public Event(Map<String,String> m){
-        super(m);
-    }
+    final private String UID;
+    final private String SUMMARY;
+    final private String LOCATION;
+    final private LocalDate LAST_MODIFIED;
+    final private LocalDate DTSTAMP;
+    final private LocalDate DTSTART;
+    final private LocalDate DTEND;
+    final private LocalDate CREATED;
+    final private String DESCRIPTION;
 
-
-    // --- Getters ---
-    public String getStart() {
-        return get("DTSTART");
-    }
-
-    public String getEnd() {
-        return get("DTEND");
-    }
-
-    public String getSummary() {
-        return get("SUMMARY");
-    }
-
-    public String getLocation() {
-        return get("LOCATION");
-    }
-
-    public String getDescription() {
-        return get("DESCRIPTION");
+    public Event(String UID,
+    String SUMMARY,
+    String LOCATION,
+    LocalDate LAST_MODIFIED,
+    LocalDate DTSTAMP,
+    LocalDate DTSTART,
+    LocalDate DTEND,
+    LocalDate CREATED,
+    String DESCRIPTION) {
+        this.UID = UID;
+        this.SUMMARY = SUMMARY;
+        this.LOCATION = LOCATION;
+        this.LAST_MODIFIED = LAST_MODIFIED;
+        this.DTSTAMP = DTSTAMP;
+        this.DTSTART = DTSTART;
+        this.DTEND = DTEND;
+        this.CREATED = CREATED;
+        this.DESCRIPTION = DESCRIPTION;
     }
     @Override
     public ViewType viewType() {
         return ViewType.EVENTS;
     }
 
+    
+    public String getUid() {
+        return this.UID;
+    }
+
+    public String getSummary() {
+        return this.SUMMARY;
+    }
+
+    public String getLocation() {
+        return this.LOCATION;
+    }
+
+    public LocalDate getLastModified() {
+        return this.LAST_MODIFIED;
+    }
+
+    public LocalDate getDtStamp() {
+        return this.DTSTAMP;
+    }
+
+    public LocalDate getStart() {
+        return this.DTSTART;
+    }
+
+    public LocalDate getEnd() {
+        return this.DTEND;
+    }
+
+    public LocalDate getCreated() {
+        return this.CREATED;
+    }
+    public String getDescription() {
+        return this.DESCRIPTION;
+    }
+
+    
     @Override
     public String toString() {
         return """
-        [EVENT]
-        Summary     : %s
-        Start       : %s
-        End         : %s
-        Location    : %s
-        UID         : %s
-        Description : %s
-        """.formatted(
+                [EVENT] =========
+                Summary      : %s
+                Start        : %s
+                End          : %s
+                Location     : %s
+                UID          : %s
+                Description  : %s
+                Created      : %s
+                LastModified : %s
+                DTStamp      : %s
+                =================
+                """.formatted(
                 getSummary(),
                 getStart(),
                 getEnd(),
                 getLocation(),
                 getUid(),
-                getDescription()
-        );
+                getDescription(),
+                getCreated(),
+                getLastModified(),
+                getDtStamp());
     }
+
 }
