@@ -88,16 +88,16 @@ public class Main {
     public static void main(String[] args) {
 
         try {
-            // 1️⃣ Parse CLI
+            
             CliConfig config = CliParser.parse(args);
 
-            // 2️⃣ Parse ICS
+            
             Parser parser = new Parser();
             Calender cal = parser.parse(config.getInputFile());
 
             List<CalElement> result = new ArrayList<>();
 
-            // 3️⃣ Sélection + filtrage
+            //  Sélection + filtrage
             if (config.getViewType() == ViewType.EVENTS) {
                 List<Event> events = new ArrayList<>();
                 for (CalElement el : cal.get(ViewType.EVENTS)) {
@@ -117,10 +117,10 @@ public class Main {
                 result = TodoFilter.filter(todos, config);
             }
 
-            // 4️⃣ Writer
+            //  Writer
             OutputWriter writer = OutputWriterFactory.create(config);
 
-            // 5️⃣ Output
+            //  Output
             writer.write(result, config.getOutputStream());
 
         } catch (CliException e) {
