@@ -19,18 +19,18 @@ public class Main {
 
         String path = args[0];
         String mode = args[1].toUpperCase();
-        String option;
-        if (args.length >= 3 && args.length <= 4) {
-            option = args[2];
-        }
-        else if(args.length > 4 && args[2].equals("-from") && args[4].equals("-to")){
-            option = "fromto";
-        }
-        else{
-            option = null;
-        }
-        String date1 = (args.length >= 4) ? args[3] : null;
-        String date2 = (args.length == 6) ? args[5] : null;
+        // String option;
+        // if (args.length >= 3 && args.length <= 4) {
+        //     option = args[2];
+        // }
+        // else if(args.length > 4 && args[2].equals("-from") && args[4].equals("-to")){
+        //     option = "fromto";
+        // }
+        // else{
+        //     option = null;
+        // }
+        // String date1 = (args.length >= 4) ? args[3] : null;
+        // String date2 = (args.length == 6) ? args[5] : null;
 
 
         // Vérification du mode
@@ -48,27 +48,26 @@ public class Main {
         Calender calendar = parser.parse(Path.of(path));
 
         // Récupérer les éléments correspondants au type (events ou todos)
-        List<CalElement> elements = calendar.get(viewType);
+        // List<CalElement> elements = calendar.get(viewType);
 
-        // ---- FILTRAGE ----
-        if (option != null) {
+        // // ---- FILTRAGE ----
+        // if (option != null) {
 
-            if (viewType == ViewType.EVENTS) {
+        //     if (viewType == ViewType.EVENTS) {
 
-                List<Event> events = elements.stream().map(e -> (Event) e).toList();
+        //         List<Event> events = elements.stream().map(e -> (Event) e).toList();
 
-                OptionsEvent ev = new OptionsEvent();
+        //         OptionsEvent ev = new OptionsEvent();
 
-                List<Event> filtered = ev.filter(option, events, date1, date2);
+        //         List<Event> filtered = ev.filter(option, events, date1, date2);
 
-                elements = List.copyOf(filtered);
+        //         elements = List.copyOf(filtered);
 
-            }
-        }
+        //     }
+        // }
 
-        for (CalElement el : elements) {
+        for (CalElement el : calendar.get(viewType)) {
             System.out.println(el);
-            System.out.println("---------------------------");
         }
     }
 }

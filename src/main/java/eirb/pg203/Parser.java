@@ -16,10 +16,17 @@ public class Parser implements IcsParser{
     String temp = "";
     for(String line : l){
       if(line.startsWith("BEGIN:") && !temp.isEmpty()) {
-        chunks.add(temp);
+        chunks.add(temp); // for header
         temp = "";
       }
-      if(line.startsWith("END:")) continue;
+      if (line.startsWith("END:")) {
+        if (!temp.isEmpty()) { // add close element
+          chunks.add(temp);
+          temp = "";
+        }
+
+        continue;
+      }
       temp = (temp.isEmpty() ? temp : temp + "\n") + line;
     }
     return chunks;
@@ -59,7 +66,7 @@ public class Parser implements IcsParser{
   }
 
   private boolean isKey(String s) {
-    return s != null && s.matches("[A-Z-;a-z\"]+"); // added ';' bc its part of the keys in todos
+    return s != null && s.matches("[A-Za-z;\"=-]+");
   }
 
   public Calender parse(Path path){

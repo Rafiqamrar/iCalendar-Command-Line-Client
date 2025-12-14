@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +21,52 @@ public class Utils {
         elts[2] = date.substring(6, 8); // day
         String result = String.join("/", elts);
         return LocalDate.parse(result, formatter);
+    }
+
+    
+    public static Number StoNum(String s){
+        if (s == null) return null;
+        s = s.trim();
+        if (s.isEmpty()) return null;
+        try {
+            return Integer.valueOf(s);
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+    private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("yyyyMMdd");
+    private static final DateTimeFormatter DATETIME = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+    public static LocalDate dateFormatter(String raw) {
+        if (raw == null) return null;
+        String v = raw.trim();
+        if (v.isEmpty()) return null;
+
+        try {
+            // Pure date (8 digits)
+            if (v.length() == 8 && v.chars().allMatch(Character::isDigit)) {
+                return LocalDate.parse(v, DATE);
+            }
+            return null;
+        } catch (Exception e) {
+            return null; // best-effort: return null if malformed
+        }
+    }
+    public static LocalDateTime dateTimeFormatter(String raw) {
+        if (raw == null) return null;
+        String v = raw.trim();
+        if (v.isEmpty()) return null;
+
+        try {
+            if (v.endsWith("Z")) {
+                String core = v.substring(0, v.length() - 1);
+                LocalDateTime ldt = LocalDateTime.parse(core, DATETIME);
+                return ldt;
+            }
+            LocalDateTime ldt = LocalDateTime.parse(v, DATETIME);
+            return ldt;
+        } catch (Exception e) {
+            return null; // best-effort: return null if malformed
+        }
     }
 
   // takes a path and returns a List<String> of its lines

@@ -1,6 +1,6 @@
 package eirb.pg203;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Event extends CalElement {
@@ -8,24 +8,24 @@ public class Event extends CalElement {
     final private String UID;
     final private String SUMMARY;
     final private String LOCATION;
-    final private LocalDate LAST_MODIFIED;
-    final private LocalDate DTSTAMP;
-    final private LocalDate DTSTART;
-    final private LocalDate DTEND;
-    final private LocalDate CREATED;
+    final private LocalDateTime LAST_MODIFIED;
+    final private LocalDateTime DTSTAMP;
+    final private LocalDateTime DTSTART;
+    final private LocalDateTime DTEND;
+    final private LocalDateTime CREATED;
     final private String DESCRIPTION;
-    final private String SEQUENCE;
+    final private Number SEQUENCE;
 
     public Event(String UID,
     String SUMMARY,
     String LOCATION,
-    LocalDate LAST_MODIFIED,
-    LocalDate DTSTAMP,
-    LocalDate DTSTART,
-    LocalDate DTEND,
-    LocalDate CREATED,
+    LocalDateTime LAST_MODIFIED,
+    LocalDateTime DTSTAMP,
+    LocalDateTime DTSTART,
+    LocalDateTime DTEND,
+    LocalDateTime CREATED,
     String DESCRIPTION,
-    String SEQUENCE) {
+    Number SEQUENCE) {
         this.UID = UID;
         this.SUMMARY = SUMMARY;
         this.LOCATION = LOCATION;
@@ -55,29 +55,29 @@ public class Event extends CalElement {
         return this.LOCATION;
     }
 
-    public LocalDate getLastModified() {
+    public LocalDateTime getLastModified() {
         return this.LAST_MODIFIED;
     }
 
-    public LocalDate getDtStamp() {
+    public LocalDateTime getDtStamp() {
         return this.DTSTAMP;
     }
 
-    public LocalDate getStart() {
+    public LocalDateTime getStart() {
         return this.DTSTART;
     }
 
-    public LocalDate getEnd() {
+    public LocalDateTime getEnd() {
         return this.DTEND;
     }
 
-    public LocalDate getCreated() {
+    public LocalDateTime getCreated() {
         return this.CREATED;
     }
     public String getDescription() {
         return this.DESCRIPTION;
     }
-    public String getSequence() {
+    public Number getSequence() {
         return this.SEQUENCE;
     }
 

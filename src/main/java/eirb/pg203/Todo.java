@@ -2,24 +2,26 @@ package eirb.pg203;
 
 import java.util.Map;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Todo extends CalElement {
     final private String UID;
     final private String SUMMARY;
     final private String LOCATION;
     final private String STATUS;
-    final private String PERCENT_COMPLETE;
-    final private LocalDate COMPLETED;
+    final private Number PERCENT_COMPLETE;
+    final private LocalDateTime COMPLETED;
     final private LocalDate DUE;
+    final private LocalDate DTSTART;
     final private String CLASS;
     final private Number PRIORITY;
-    final private LocalDate LAST_MODIFIED;
-    final private LocalDate DTSTAMP;
+    final private LocalDateTime LAST_MODIFIED;
+    final private LocalDateTime DTSTAMP;
     final private Number SEQUENCE;
     final private String ORGANIZER_name;
     final private String ORGANIZER_mail;
 
-    public Todo(String uid, String summary, String location, String status, String percent_complete, LocalDate completed ,LocalDate due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail) {
+    public Todo(String uid, String summary, String location, String status, Number percent_complete, LocalDateTime completed ,LocalDate due,LocalDate dtstart, String class_, Number priority, LocalDateTime last_modified, LocalDateTime dtstamp, Number sequence, String organizer_name, String organizer_mail) {
         this.UID = uid; 
         this.SUMMARY = summary;
         this.LOCATION = location;
@@ -27,6 +29,7 @@ public class Todo extends CalElement {
         this.PERCENT_COMPLETE = percent_complete;
         this.COMPLETED = completed;
         this.DUE = due;
+        this.DTSTART = dtstart;
         this.CLASS = class_;
         this.PRIORITY = priority;
         this.LAST_MODIFIED = last_modified;
@@ -40,8 +43,6 @@ public class Todo extends CalElement {
         return ViewType.TODOS;
     }
 
-
-    
     public String getUid() {
         return this.UID;
     }
@@ -58,15 +59,18 @@ public class Todo extends CalElement {
         return this.STATUS;
     }
 
-    public String getPercentComplete() {
+    public Number getPercentComplete() {
         return this.PERCENT_COMPLETE;
     }
-    public LocalDate getCompleted() {
+    public LocalDateTime getCompleted() {
         return this.COMPLETED;
     }
 
     public LocalDate getDue() {
         return this.DUE;
+    }
+    public LocalDate getDtstart() {
+        return this.DTSTART;
     }
 
     public String getTClass() {
@@ -77,11 +81,11 @@ public class Todo extends CalElement {
         return this.PRIORITY;
     }
 
-    public LocalDate getLastModified() {
+    public LocalDateTime getLastModified() {
         return this.LAST_MODIFIED;
     }
 
-    public LocalDate getDtStamp() {
+    public LocalDateTime getDtStamp() {
         return this.DTSTAMP;
     }
 
@@ -105,6 +109,7 @@ public class Todo extends CalElement {
                 Status        : %s
                 Percent       : %s
                 Due           : %s
+                Dtstart       : %s
                 Location      : %s
                 UID           : %s
                 Class         : %s
@@ -119,6 +124,7 @@ public class Todo extends CalElement {
                 getStatus(),
                 getPercentComplete(),
                 getDue(),
+                getDtstart(),
                 getLocation(),
                 getUid(),
                 getTClass(),

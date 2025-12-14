@@ -35,7 +35,7 @@ public class Calender {
   public List<CalElement> get(ViewType type) {
     List<CalElement> res = new ArrayList<>();
     for (CalElement el : list) {
-        if (el.viewType() == type) {
+        if ( type == ViewType.ALL || el.viewType() == type) {
             res.add(el);
         }
     }
