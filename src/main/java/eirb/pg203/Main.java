@@ -1,4 +1,4 @@
-package eirb.pg203;
+/*package eirb.pg203;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -68,6 +68,66 @@ public class Main {
 
         for (CalElement el : calendar.get(viewType)) {
             System.out.println(el);
+        }
+    }
+}
+
+*/
+
+package eirb.pg203;
+
+import eirb.pg203.cli.*;
+import eirb.pg203.filter.*;
+import eirb.pg203.output.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        try {
+            // 1️⃣ Parse CLI
+            CliConfig config = CliParser.parse(args);
+
+            // 2️⃣ Parse ICS
+            Parser parser = new Parser();
+            Calender cal = parser.parse(config.getInputFile());
+
+            List<CalElement> result = new ArrayList<>();
+
+            // 3️⃣ Sélection + filtrage
+            if (config.getViewType() == ViewType.EVENTS) {
+                List<Event> events = new ArrayList<>();
+                for (CalElement el : cal.get(ViewType.EVENTS)) {
+                    if (el instanceof Event) {
+                        events.add((Event) el);
+                    }
+                }
+                result = EventFilter.filter(events, config);
+
+            } else {
+                List<Todo> todos = new ArrayList<>();
+                for (CalElement el : cal.get(ViewType.TODOS)) {
+                    if (el instanceof Todo) {
+                        todos.add((Todo) el);
+                    }
+                }
+                result = TodoFilter.filter(todos, config);
+            }
+
+            // 4️⃣ Writer
+            OutputWriter writer = OutputWriterFactory.create(config);
+
+            // 5️⃣ Output
+            writer.write(result, config.getOutputStream());
+
+        } catch (CliException e) {
+            System.err.println("Erreur: " + e.getMessage());
+        } catch (Exception e) {
+            System.err.println("Erreur interne: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 }
