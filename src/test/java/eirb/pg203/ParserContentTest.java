@@ -41,8 +41,8 @@ class ParserContentTest {
         Event event = (Event) events.get(0);
         assertEquals("simple-event-456", event.getUid(), "UID incorrect");
         assertEquals("Test Event Simple", event.getSummary(), "Summary incorrect");
-        assertEquals("20250101T090000Z", event.getStart(), "DTSTART incorrect");
-        assertEquals("20250101T100000Z", event.getEnd(), "DTEND incorrect");
+        assertEquals(Utils.dateTimeFormatter("20250101T090000Z"), event.getStart(), "DTSTART incorrect");
+        assertEquals(Utils.dateTimeFormatter("20250101T100000Z"), event.getEnd(), "DTEND incorrect");
         assertEquals("Salle A", event.getLocation(), "LOCATION incorrect");
     }
 
@@ -61,18 +61,18 @@ class ParserContentTest {
         assertEquals("457d2974-389e-44f4-b201-efdd66183608", todo.getUid(), "UID incorrect");
         assertEquals("Réviser l'examen de POO", todo.getSummary(), "Summary incorrect");
         assertEquals("Enseirb", todo.getLocation(), "Location incorrect");
-        assertEquals("100", todo.getPercentComplete(), "Percent incorrect");
+        assertEquals(100, todo.getPercentComplete(), "Percent incorrect");
         assertEquals("COMPLETED", todo.getStatus(), "Status incorrect");
         
         // Vérifier les propriétés avec get()
-        assertEquals("5", todo.getPriority(), "Priority incorrect");
+        assertEquals(5, todo.getPriority(), "Priority incorrect");
         assertEquals("PUBLIC", todo.getTClass(), "Class incorrect");
         assertEquals("mailto:foo@bar.fr", todo.getOrganizerMail(), "Organizer incorrect");
-        assertEquals("20251107", todo.getDue(), "Due incorrect");
-        assertEquals("20251104T204504Z", todo.getCompleted(), "Completed incorrect");
-        assertEquals("20251104T204504Z", todo.getLastModified(), "Last-modified incorrect");
-        assertEquals("20251104T204504Z", todo.getDtStamp(), "DTSTAMP incorrect");
-        assertEquals("2", todo.getSequence(), "Sequence incorrect");
+        assertEquals(Utils.dateFormatter("20251107"), todo.getDue(), "Due incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251104T204504Z"), todo.getCompleted(), "Completed incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251104T204504Z"), todo.getLastModified(), "Last-modified incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251104T204504Z"), todo.getDtStamp(), "DTSTAMP incorrect");
+        assertEquals(2, todo.getSequence(), "Sequence incorrect");
     }
 
     @Test
@@ -89,8 +89,8 @@ class ParserContentTest {
         
         assertEquals("Présentation PFA", event.getSummary(), "Summary incorrect");
         assertEquals("EA- (AMPHI A)", event.getLocation(), "Location incorrect");
-        assertEquals("20251110T151000Z", event.getStart(), "DTSTART incorrect");
-        assertEquals("20251110T154000Z", event.getEnd(), "DTEND incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251110T151000Z"), event.getStart(), "DTSTART incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251110T154000Z"), event.getEnd(), "DTEND incorrect");
         
         String description = event.getDescription();
         assertNotNull(description, "Description ne devrait pas être null");
@@ -99,10 +99,10 @@ class ParserContentTest {
         assertTrue(description.contains("Exporté le:04/11/2025 22:58"), "Description devrait contenir la date d'export");
         
         assertEquals("ADE60323032352d323032362d343731362d302d30", event.getUid(), "UID incorrect");
-        assertEquals("20251104T215832Z", event.getDtStamp(), "DTSTAMP incorrect");
-        assertEquals("19700101T000000Z", event.getCreated(), "CREATED incorrect");
-        assertEquals("20251104T215832Z", event.getLastModified(), "LAST-MODIFIED incorrect");
-        assertEquals("2142021698", event.getSequence(), "SEQUENCE incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251104T215832Z"), event.getDtStamp(), "DTSTAMP incorrect");
+        assertEquals(Utils.dateTimeFormatter("19700101T000000Z"), event.getCreated(), "CREATED incorrect");
+        assertEquals(Utils.dateTimeFormatter("20251104T215832Z"), event.getLastModified(), "LAST-MODIFIED incorrect");
+        assertEquals(2142021698, event.getSequence(), "SEQUENCE incorrect");
     }
 
     @Test
@@ -121,22 +121,22 @@ class ParserContentTest {
         Todo todo1 = (Todo) todos.get(0);
         assertEquals("todo-1", todo1.getUid(), "TODO1 UID incorrect");
         assertEquals("First Todo", todo1.getSummary(), "TODO1 Summary incorrect");
-        assertEquals("1", todo1.getPriority(), "TODO1 Priority incorrect");
+        assertEquals(1, todo1.getPriority(), "TODO1 Priority incorrect");
         
         Todo todo2 = (Todo) todos.get(1);
         assertEquals("todo-2", todo2.getUid(), "TODO2 UID incorrect");
         assertEquals("Second Todo", todo2.getSummary(), "TODO2 Summary incorrect");
-        assertEquals("2", todo2.getPriority(), "TODO2 Priority incorrect");
+        assertEquals(2, todo2.getPriority(), "TODO2 Priority incorrect");
         
         Event event1 = (Event) events.get(0);
         assertEquals("event-1", event1.getUid(), "EVENT1 UID incorrect");
         assertEquals("First Event", event1.getSummary(), "EVENT1 Summary incorrect");
-        assertEquals("20250101T100000Z", event1.getStart(), "EVENT1 DTSTART incorrect");
+        assertEquals(Utils.dateTimeFormatter("20250101T100000Z"), event1.getStart(), "EVENT1 DTSTART incorrect");
         
         Event event2 = (Event) events.get(1);
         assertEquals("event-2", event2.getUid(), "EVENT2 UID incorrect");
         assertEquals("Second Event", event2.getSummary(), "EVENT2 Summary incorrect");
-        assertEquals("20250102T100000Z", event2.getStart(), "EVENT2 DTSTART incorrect");
+        assertEquals(Utils.dateTimeFormatter("20250102T100000Z"), event2.getStart(), "EVENT2 DTSTART incorrect");
     }
 
     @Test
@@ -155,7 +155,7 @@ class ParserContentTest {
         assertEquals("mailto:foo@bar.fr", organizer, "Organizer incorrect");
         
         LocalDate due = todo.getDue();
-        assertEquals("20251107", due, "Due date incorrect");
+        assertEquals(Utils.dateFormatter("20251107"), due, "Due date incorrect");
     }
 
     @Test
