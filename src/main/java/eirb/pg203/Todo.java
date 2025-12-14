@@ -9,7 +9,8 @@ public class Todo extends CalElement {
     final private String LOCATION;
     final private String STATUS;
     final private String PERCENT_COMPLETE;
-    final private Number DUE;
+    final private LocalDate COMPLETED;
+    final private LocalDate DUE;
     final private String CLASS;
     final private Number PRIORITY;
     final private LocalDate LAST_MODIFIED;
@@ -18,12 +19,13 @@ public class Todo extends CalElement {
     final private String ORGANIZER_name;
     final private String ORGANIZER_mail;
 
-    public Todo(String uid, String summary, String location, String status, String percent_complete, Number due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail) {
+    public Todo(String uid, String summary, String location, String status, String percent_complete, LocalDate completed ,LocalDate due, String class_, Number priority, LocalDate last_modified, LocalDate dtstamp, Number sequence, String organizer_name, String organizer_mail) {
         this.UID = uid; 
         this.SUMMARY = summary;
         this.LOCATION = location;
         this.STATUS = status;
         this.PERCENT_COMPLETE = percent_complete;
+        this.COMPLETED = completed;
         this.DUE = due;
         this.CLASS = class_;
         this.PRIORITY = priority;
@@ -41,54 +43,57 @@ public class Todo extends CalElement {
 
     
     public String getUid() {
-        return UID;
+        return this.UID;
     }
 
     public String getSummary() {
-        return SUMMARY;
+        return this.SUMMARY;
     }
 
     public String getLocation() {
-        return LOCATION;
+        return this.LOCATION;
     }
 
     public String getStatus() {
-        return STATUS;
+        return this.STATUS;
     }
 
     public String getPercentComplete() {
-        return PERCENT_COMPLETE;
+        return this.PERCENT_COMPLETE;
+    }
+    public LocalDate getCompleted() {
+        return this.COMPLETED;
     }
 
-    public Number getDue() {
-        return DUE;
+    public LocalDate getDue() {
+        return this.DUE;
     }
 
     public String getTClass() {
-        return CLASS;
+        return this.CLASS;
     }
 
     public Number getPriority() {
-        return PRIORITY;
+        return this.PRIORITY;
     }
 
     public LocalDate getLastModified() {
-        return LAST_MODIFIED;
+        return this.LAST_MODIFIED;
     }
 
     public LocalDate getDtStamp() {
-        return DTSTAMP;
+        return this.DTSTAMP;
     }
 
     public Number getSequence() {
-        return SEQUENCE;
+        return this.SEQUENCE;
     }
 
     public String getOrganizerName() {
-        return ORGANIZER_name;
+        return this.ORGANIZER_name;
     }
     public String getOrganizerMail() {
-        return ORGANIZER_mail;
+        return this.ORGANIZER_mail;
     }
 
     

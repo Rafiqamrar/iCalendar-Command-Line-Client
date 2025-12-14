@@ -14,6 +14,7 @@ public class Event extends CalElement {
     final private LocalDate DTEND;
     final private LocalDate CREATED;
     final private String DESCRIPTION;
+    final private String SEQUENCE;
 
     public Event(String UID,
     String SUMMARY,
@@ -23,7 +24,8 @@ public class Event extends CalElement {
     LocalDate DTSTART,
     LocalDate DTEND,
     LocalDate CREATED,
-    String DESCRIPTION) {
+    String DESCRIPTION,
+    String SEQUENCE) {
         this.UID = UID;
         this.SUMMARY = SUMMARY;
         this.LOCATION = LOCATION;
@@ -33,6 +35,7 @@ public class Event extends CalElement {
         this.DTEND = DTEND;
         this.CREATED = CREATED;
         this.DESCRIPTION = DESCRIPTION;
+        this.SEQUENCE = SEQUENCE;
     }
     @Override
     public ViewType viewType() {
@@ -73,6 +76,9 @@ public class Event extends CalElement {
     }
     public String getDescription() {
         return this.DESCRIPTION;
+    }
+    public String getSequence() {
+        return this.SEQUENCE;
     }
 
     

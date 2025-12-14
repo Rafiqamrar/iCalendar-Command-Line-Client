@@ -68,7 +68,7 @@ public class Parser implements IcsParser{
     for(String chunk : chunks){
       maps.add(this.parseChunk(chunk));
     }
-    return Factory.calender(maps);
+    return Decoder.calender(maps);
   }
 
 }
