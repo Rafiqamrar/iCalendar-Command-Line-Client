@@ -4,8 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public class Todo extends CalElement
-{
+public class Todo extends CalElement {
   final private String UID;
   final private String SUMMARY;
   final private String LOCATION;
@@ -22,16 +21,13 @@ public class Todo extends CalElement
   final private String ORGANIZER_name;
   final private String ORGANIZER_mail;
 
-  public Todo (String uid, String summary, String location, String status,
-               Number percent_complete, LocalDateTime completed, LocalDate due,
-               LocalDate dtstart, String todo_class, Number priority,
-               LocalDateTime last_modified, LocalDateTime dtstamp,
-               Number sequence, String organizer_name, String organizer_mail)
-  {
-    if (uid == null || uid.isEmpty ())
-      {
-        throw new IllegalArgumentException ("UID was not provided");
-      }
+  public Todo(String uid, String summary, String location, String status, Number percent_complete,
+      LocalDateTime completed, LocalDate due, LocalDate dtstart, String todo_class, Number priority,
+      LocalDateTime last_modified, LocalDateTime dtstamp, Number sequence, String organizer_name,
+      String organizer_mail) {
+    if (uid == null || uid.isEmpty()) {
+      throw new IllegalArgumentException("UID was not provided");
+    }
     this.UID = uid;
     this.SUMMARY = summary;
     this.LOCATION = location;
@@ -49,103 +45,69 @@ public class Todo extends CalElement
     this.ORGANIZER_mail = organizer_mail;
   }
 
-  public ViewType
-  viewType ()
-  {
+  public ViewType viewType() {
     return ViewType.TODOS;
   }
 
-  public String
-  getUid ()
-  {
+  public String getUid() {
     return this.UID;
   }
 
-  public String
-  getSummary ()
-  {
+  public String getSummary() {
     return this.SUMMARY;
   }
 
-  public String
-  getLocation ()
-  {
+  public String getLocation() {
     return this.LOCATION;
   }
 
-  public String
-  getStatus ()
-  {
+  public String getStatus() {
     return this.STATUS;
   }
 
-  public Number
-  getPercentComplete ()
-  {
+  public Number getPercentComplete() {
     return this.PERCENT_COMPLETE;
   }
-  public LocalDateTime
-  getCompleted ()
-  {
+  public LocalDateTime getCompleted() {
     return this.COMPLETED;
   }
 
-  public LocalDate
-  getDue ()
-  {
+  public LocalDate getDue() {
     return this.DUE;
   }
-  public LocalDate
-  getDtstart ()
-  {
+  public LocalDate getDtstart() {
     return this.DTSTART;
   }
 
-  public String
-  getTClass ()
-  {
+  public String getTClass() {
     return this.CLASS;
   }
 
-  public Number
-  getPriority ()
-  {
+  public Number getPriority() {
     return this.PRIORITY;
   }
 
-  public LocalDateTime
-  getLastModified ()
-  {
+  public LocalDateTime getLastModified() {
     return this.LAST_MODIFIED;
   }
 
-  public LocalDateTime
-  getDtStamp ()
-  {
+  public LocalDateTime getDtStamp() {
     return this.DTSTAMP;
   }
 
-  public Number
-  getSequence ()
-  {
+  public Number getSequence() {
     return this.SEQUENCE;
   }
 
-  public String
-  getOrganizerName ()
-  {
+  public String getOrganizerName() {
     return this.ORGANIZER_name;
   }
-  public String
-  getOrganizerMail ()
-  {
+  public String getOrganizerMail() {
     return this.ORGANIZER_mail;
   }
 
   @Override
-  public String
-  toString ()
-  {
+  public String toString() {
         return """
                 [TODO] ===========
                 Summary       : %s

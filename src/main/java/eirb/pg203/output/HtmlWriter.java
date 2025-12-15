@@ -7,75 +7,61 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
-public class HtmlWriter implements OutputWriter
-{
+public class HtmlWriter implements OutputWriter {
 
   @Override
-  public void
-  write (List<? extends CalElement> elements, OutputStream out)
-  {
-    PrintWriter pw = new PrintWriter (out);
+  public void write(List<? extends CalElement> elements, OutputStream out) {
+    PrintWriter pw = new PrintWriter(out);
 
-    pw.println ("<!DOCTYPE html>");
-    pw.println ("<html lang=\"en\">");
-    pw.println ("<head>");
-    pw.println ("<meta charset=\"UTF-8\">");
-    pw.println ("<title>clical output</title>");
-    pw.println ("</head>");
-    pw.println ("<body>");
+    pw.println("<!DOCTYPE html>");
+    pw.println("<html lang=\"en\">");
+    pw.println("<head>");
+    pw.println("<meta charset=\"UTF-8\">");
+    pw.println("<title>clical output</title>");
+    pw.println("</head>");
+    pw.println("<body>");
 
-    for (CalElement el : elements)
-      {
-        if (el instanceof Event e)
-          {
-            writeEvent (e, pw);
-          }
-        else if (el instanceof Todo t)
-          {
-            writeTodo (t, pw);
-          }
+    for (CalElement el : elements) {
+      if (el instanceof Event e) {
+        writeEvent(e, pw);
+      } else if (el instanceof Todo t) {
+        writeTodo(t, pw);
       }
+    }
 
-    pw.println ("</body>");
-    pw.println ("</html>");
-    pw.flush ();
+    pw.println("</body>");
+    pw.println("</html>");
+    pw.flush();
   }
 
-  private void
-  writeEvent (Event e, PrintWriter pw)
-  {
-    pw.println ("<section>");
-    pw.println ("<h2>Event</h2>");
-    pw.println ("<ul>");
-    li (pw, "Summary", e.getSummary ());
-    li (pw, "Start", e.getStart ());
-    li (pw, "End", e.getEnd ());
-    li (pw, "Location", e.getLocation ());
-    li (pw, "Description", e.getDescription ());
-    pw.println ("</ul>");
-    pw.println ("</section>");
+  private void writeEvent(Event e, PrintWriter pw) {
+    pw.println("<section>");
+    pw.println("<h2>Event</h2>");
+    pw.println("<ul>");
+    li(pw, "Summary", e.getSummary());
+    li(pw, "Start", e.getStart());
+    li(pw, "End", e.getEnd());
+    li(pw, "Location", e.getLocation());
+    li(pw, "Description", e.getDescription());
+    pw.println("</ul>");
+    pw.println("</section>");
   }
 
-  private void
-  writeTodo (Todo t, PrintWriter pw)
-  {
-    pw.println ("<section>");
-    pw.println ("<h2>Todo</h2>");
-    pw.println ("<ul>");
-    li (pw, "Summary", t.getSummary ());
-    li (pw, "Status", t.getStatus ());
-    li (pw, "Due", t.getDue ());
-    li (pw, "Percent", t.getPercentComplete ());
-    pw.println ("</ul>");
-    pw.println ("</section>");
+  private void writeTodo(Todo t, PrintWriter pw) {
+    pw.println("<section>");
+    pw.println("<h2>Todo</h2>");
+    pw.println("<ul>");
+    li(pw, "Summary", t.getSummary());
+    li(pw, "Status", t.getStatus());
+    li(pw, "Due", t.getDue());
+    li(pw, "Percent", t.getPercentComplete());
+    pw.println("</ul>");
+    pw.println("</section>");
   }
 
-  private void
-  li (PrintWriter pw, String key, Object value)
-  {
-    if (value != null)
-      {
-        pw.println ("<li><strong>" + key + ":</strong> " + value + "</li>");
-      }
+  private void li(PrintWriter pw, String key, Object value) {
+    if (value != null) {
+      pw.println("<li><strong>" + key + ":</strong> " + value + "</li>");
+    }
   }
 }

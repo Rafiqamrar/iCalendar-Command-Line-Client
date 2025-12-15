@@ -32,16 +32,16 @@ jar {
 
 task clangFormat(type: Exec) {
     group = 'formatting'
-    description = 'Format all Java files using clang-format with GNU style'
+    description = 'Format all Java files using clang-format with .clang-format config'
     
     workingDir project.rootDir
-    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format -i --fallback-style=GNU --style=GNU {} \\;'
+    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format -i {} \\;'
 }
 
 task clangFormatCheck(type: Exec) {
     group = 'verification'
-    description = 'Check Java files formatting using clang-format with GNU style'
+    description = 'Check Java files formatting using clang-format with .clang-format config'
     
     workingDir project.rootDir
-    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format --dry-run -Werror --fallback-style=GNU --style=GNU {} \\;'
+    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format --dry-run -Werror {} \\;'
 }

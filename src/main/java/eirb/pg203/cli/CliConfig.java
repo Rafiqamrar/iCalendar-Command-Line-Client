@@ -7,8 +7,7 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
-public class CliConfig
-{
+public class CliConfig {
 
   private Path inputFile;
   private ViewType viewType;
@@ -22,11 +21,9 @@ public class CliConfig
   private OutputFormat outputFormat;
   private Path outputFile;
 
-  public CliConfig (Path inputFile, ViewType viewType,
-                    EventFilterType eventFilter, TodoFilterType todoFilter,
-                    LocalDate from, LocalDate to, OutputFormat outputFormat,
-                    Path outputFile)
-  {
+  public CliConfig(Path inputFile, ViewType viewType, EventFilterType eventFilter,
+      TodoFilterType todoFilter, LocalDate from, LocalDate to, OutputFormat outputFormat,
+      Path outputFile) {
 
     this.inputFile = inputFile;
     this.viewType = viewType;
@@ -38,63 +35,42 @@ public class CliConfig
     this.outputFile = outputFile;
   }
 
-  public Path
-  getInputFile ()
-  {
+  public Path getInputFile() {
     return inputFile;
   }
 
-  public ViewType
-  getViewType ()
-  {
+  public ViewType getViewType() {
     return viewType;
   }
 
-  public EventFilterType
-  getEventFilter ()
-  {
+  public EventFilterType getEventFilter() {
     return eventFilter;
   }
 
-  public TodoFilterType
-  getTodoFilter ()
-  {
+  public TodoFilterType getTodoFilter() {
     return todoFilter;
   }
 
-  public LocalDate
-  getFrom ()
-  {
+  public LocalDate getFrom() {
     return from;
   }
 
-  public LocalDate
-  getTo ()
-  {
+  public LocalDate getTo() {
     return to;
   }
 
-  public OutputFormat
-  getOutputFormat ()
-  {
+  public OutputFormat getOutputFormat() {
     return outputFormat;
   }
 
-  public OutputStream
-  getOutputStream ()
-  {
-    try
-      {
-        if (outputFile == null)
-          {
-            return System.out;
-          }
-        return new FileOutputStream (outputFile.toFile ());
+  public OutputStream getOutputStream() {
+    try {
+      if (outputFile == null) {
+        return System.out;
       }
-    catch (Exception e)
-      {
-        throw new RuntimeException (
-            "Impossible d'écrire le fichier de sortie");
-      }
+      return new FileOutputStream(outputFile.toFile());
+    } catch (Exception e) {
+      throw new RuntimeException("Impossible d'écrire le fichier de sortie");
+    }
   }
 }
