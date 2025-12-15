@@ -29,3 +29,19 @@ jar {
                 attributes 'Main-Class': application.mainClass
         }
 }
+
+task clangFormat(type: Exec) {
+    group = 'formatting'
+    description = 'Format all Java files using clang-format with GNU style'
+    
+    workingDir project.rootDir
+    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format -i --fallback-style=GNU --style=GNU {} \\;'
+}
+
+task clangFormatCheck(type: Exec) {
+    group = 'verification'
+    description = 'Check Java files formatting using clang-format with GNU style'
+    
+    workingDir project.rootDir
+    commandLine 'sh', '-c', 'find . -name "*.java" -exec clang-format --dry-run -Werror --fallback-style=GNU --style=GNU {} \\;'
+}
