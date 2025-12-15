@@ -23,10 +23,11 @@ public class Todo extends CalElement
   final private String ORGANIZER_mail;
 
   public Todo (String uid, String summary, String location, String status,
-               Integer percent_complete, LocalDateTime completed, LocalDate due,
-               LocalDate dtstart, String todo_class, Integer priority,
-               LocalDateTime last_modified, LocalDateTime dtstamp,
-               Integer sequence, String organizer_name, String organizer_mail)
+               Integer percent_complete, LocalDateTime completed,
+               LocalDate due, LocalDate dtstart, String todo_class,
+               Integer priority, LocalDateTime last_modified,
+               LocalDateTime dtstamp, Integer sequence, String organizer_name,
+               String organizer_mail)
   {
     if (uid == null || uid.isEmpty ())
       {
