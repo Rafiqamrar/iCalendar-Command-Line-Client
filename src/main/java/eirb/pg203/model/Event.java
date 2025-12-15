@@ -28,6 +28,9 @@ public class Event extends CalElement {
         if (uid == null || uid.isEmpty()) {
             throw new IllegalArgumentException("UID was not provided");
         }
+        if (dtstart == null) {
+            throw new IllegalArgumentException("DTSTART ne peut pas être null");
+        }
         this.UID = uid;
         this.SUMMARY = summary;
         this.LOCATION = location;
