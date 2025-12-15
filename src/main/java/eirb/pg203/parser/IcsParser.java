@@ -1,6 +1,8 @@
-package eirb.pg203;
+package eirb.pg203.parser;
+
+import eirb.pg203.model.Calendar;
 import java.nio.file.Path;
 
 public interface IcsParser {
-  Calender parse(Path path);
+  Calendar parse(Path path);
 }

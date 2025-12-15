@@ -1,5 +1,10 @@
-package eirb.pg203;
+package eirb.pg203.parser;
 
+import eirb.pg203.model.CalElement;
+import eirb.pg203.model.Calendar;
+import eirb.pg203.model.Event;
+import eirb.pg203.model.Todo;
+import eirb.pg203.util.Utils;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
@@ -12,11 +17,9 @@ public class Decoder {
     // Returns null if no CN is present.
     public static String getOname(Map<String, String> map) {
         if (map == null) return null;
-        System.out.println("[DEBUG] getOname called2 on Map : " + map.keySet());
         for (String key : map.keySet()) {
             if (key == null) continue;
             if (key.startsWith("ORGANIZER")) {
-                System.err.println("[DEBUG] " + key);
                 int semi = key.indexOf(";CN=");
                 if (semi >= 0) {
                     // value after ";CN="
@@ -117,10 +120,10 @@ public class Decoder {
         }
     }
 
-    public static Calender calender(List<Map<String,String>> maps) {
+    public static Calendar calendar(List<Map<String,String>> maps) {
 
         if (maps.isEmpty()) {
-            return new Calender(new HashMap<>(), new ArrayList<>());
+            return new Calendar(new HashMap<>(), new ArrayList<>());
         }
         Map<String, String> header = maps.get(0);
 
@@ -130,6 +133,6 @@ public class Decoder {
         .map(Decoder::calElement)
         .toList();
 
-        return new Calender(header, els);
+        return new Calendar(header, els);
     }
 }

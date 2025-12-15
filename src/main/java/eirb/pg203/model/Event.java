@@ -1,4 +1,4 @@
-package eirb.pg203;
+package eirb.pg203.model;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -15,26 +15,29 @@ public class Event extends CalElement {
     final private String DESCRIPTION;
     final private Number SEQUENCE;
 
-    public Event(String UID,
-    String SUMMARY,
-    String LOCATION,
-    LocalDateTime LAST_MODIFIED,
-    LocalDateTime DTSTAMP,
-    LocalDateTime DTSTART,
-    LocalDateTime DTEND,
-    LocalDateTime CREATED,
-    String DESCRIPTION,
-    Number SEQUENCE) {
-        this.UID = UID;
-        this.SUMMARY = SUMMARY;
-        this.LOCATION = LOCATION;
-        this.LAST_MODIFIED = LAST_MODIFIED;
-        this.DTSTAMP = DTSTAMP;
-        this.DTSTART = DTSTART;
-        this.DTEND = DTEND;
-        this.CREATED = CREATED;
-        this.DESCRIPTION = DESCRIPTION;
-        this.SEQUENCE = SEQUENCE;
+    public Event(String uid,
+    String summary,
+    String location,
+    LocalDateTime last_modified,
+    LocalDateTime dtstamp,
+    LocalDateTime dtstart,
+    LocalDateTime dtend,
+    LocalDateTime created,
+    String description,
+    Number sequence) {
+        if (uid == null || uid.isEmpty()) {
+            throw new IllegalArgumentException("UID was not provided");
+        }
+        this.UID = uid;
+        this.SUMMARY = summary;
+        this.LOCATION = location;
+        this.LAST_MODIFIED = last_modified;
+        this.DTSTAMP = dtstamp;
+        this.DTSTART = dtstart;
+        this.DTEND = dtend;
+        this.CREATED = created;
+        this.DESCRIPTION = description;
+        this.SEQUENCE = sequence;
     }
 
     @Override

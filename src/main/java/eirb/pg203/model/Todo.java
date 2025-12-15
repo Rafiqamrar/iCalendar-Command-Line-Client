@@ -1,4 +1,4 @@
-package eirb.pg203;
+package eirb.pg203.model;
 
 import java.util.Map;
 import java.time.LocalDate;
@@ -21,7 +21,24 @@ public class Todo extends CalElement {
     final private String ORGANIZER_name;
     final private String ORGANIZER_mail;
 
-    public Todo(String uid, String summary, String location, String status, Number percent_complete, LocalDateTime completed ,LocalDate due,LocalDate dtstart, String class_, Number priority, LocalDateTime last_modified, LocalDateTime dtstamp, Number sequence, String organizer_name, String organizer_mail) {
+    public Todo(String uid,
+    String summary,
+    String location,
+    String status,
+    Number percent_complete,
+    LocalDateTime completed,
+    LocalDate due,
+    LocalDate dtstart,
+    String todo_class,
+    Number priority,
+    LocalDateTime last_modified,
+    LocalDateTime dtstamp,
+    Number sequence,
+    String organizer_name,
+    String organizer_mail) {
+        if (uid == null || uid.isEmpty()) {
+            throw new IllegalArgumentException("UID was not provided");
+        }
         this.UID = uid; 
         this.SUMMARY = summary;
         this.LOCATION = location;
@@ -30,7 +47,7 @@ public class Todo extends CalElement {
         this.COMPLETED = completed;
         this.DUE = due;
         this.DTSTART = dtstart;
-        this.CLASS = class_;
+        this.CLASS = todo_class;
         this.PRIORITY = priority;
         this.LAST_MODIFIED = last_modified;
         this.DTSTAMP = dtstamp;

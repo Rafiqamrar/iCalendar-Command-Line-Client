@@ -1,8 +1,7 @@
 package eirb.pg203.cli;
 
-import eirb.pg203.ViewType;
+import eirb.pg203.model.ViewType;
 import eirb.pg203.output.OutputFormat;
-
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

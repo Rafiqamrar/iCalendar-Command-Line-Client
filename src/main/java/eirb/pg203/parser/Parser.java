@@ -1,5 +1,7 @@
-package eirb.pg203;
+package eirb.pg203.parser;
 
+import eirb.pg203.model.Calendar;
+import eirb.pg203.util.Utils;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -9,7 +11,7 @@ import java.util.Map;
 public class Parser implements IcsParser{
 
   // this will add only 'BEGIN:*' to all chunks, cuz 'END:*' doesnt matter
-  // !! first 'chunk' is for info about the calender starting with 'BEGIN:VCALENDR'
+  // !! first 'chunk' is for info about the calendar starting with 'BEGIN:VCALENDR'
   private List<String> fileToChunks(Path path) {
     List<String> l = Utils.loadLines(path);
     List<String> chunks = new ArrayList<>();
@@ -69,13 +71,13 @@ public class Parser implements IcsParser{
     return s != null && s.matches("[A-Za-z;\"=-]+");
   }
 
-  public Calender parse(Path path){
+  public Calendar parse(Path path){
     List<String> chunks = fileToChunks(path);
     List<Map<String,String>> maps = new ArrayList<>();
     for(String chunk : chunks){
       maps.add(this.parseChunk(chunk));
     }
-    return Decoder.calender(maps);
+    return Decoder.calendar(maps);
   }
 
 }

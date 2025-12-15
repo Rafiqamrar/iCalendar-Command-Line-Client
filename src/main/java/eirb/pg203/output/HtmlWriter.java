@@ -1,7 +1,8 @@
 package eirb.pg203.output;
 
-import eirb.pg203.*;
-
+import eirb.pg203.model.CalElement;
+import eirb.pg203.model.Event;
+import eirb.pg203.model.Todo;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;

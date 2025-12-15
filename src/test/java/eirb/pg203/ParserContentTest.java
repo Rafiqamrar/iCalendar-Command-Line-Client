@@ -1,4 +1,12 @@
 package eirb.pg203;
+
+import eirb.pg203.parser.Parser;
+import eirb.pg203.model.Calendar;
+import eirb.pg203.model.CalElement;
+import eirb.pg203.model.Event;
+import eirb.pg203.model.Todo;
+import eirb.pg203.model.ViewType;
+import eirb.pg203.util.Utils;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Path;
@@ -16,11 +24,11 @@ class ParserContentTest {
     @Test
     void testParse_SimpleTodo_Content() {
         Path file = getTestFile("simple_todo.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
         assertEquals(1, todos.size(), "Devrait avoir 1 TODO " + file);
         
         Todo todo = (Todo) todos.get(0);
@@ -31,11 +39,11 @@ class ParserContentTest {
     @Test
     void testParse_SimpleEvent_Content() {
         Path file = getTestFile("simple_event.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> events = calender.get(ViewType.EVENTS);
+        List<CalElement> events = calendar.get(ViewType.EVENTS);
         assertEquals(1, events.size(), "Devrait avoir 1 EVENT");
         
         Event event = (Event) events.get(0);
@@ -49,11 +57,11 @@ class ParserContentTest {
     @Test
     void testParse_RealTodo_Content() {
         Path file = getTestFile("real_todo.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
         assertEquals(1, todos.size(), "Devrait avoir 1 TODO");
         
         Todo todo = (Todo) todos.get(0);
@@ -78,11 +86,11 @@ class ParserContentTest {
     @Test
     void testParse_RealEvent_Content() {
         Path file = getTestFile("real_event.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> events = calender.get(ViewType.EVENTS);
+        List<CalElement> events = calendar.get(ViewType.EVENTS);
         assertEquals(1, events.size(), "Devrait avoir 1 EVENT");
         
         Event event = (Event) events.get(0);
@@ -108,12 +116,12 @@ class ParserContentTest {
     @Test
     void testParse_MultipleItems_Content() {
         Path file = getTestFile("multiple_items.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
-        List<CalElement> events = calender.get(ViewType.EVENTS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
+        List<CalElement> events = calendar.get(ViewType.EVENTS);
         
         assertEquals(2, todos.size(), "Devrait avoir 2 TODOs");
         assertEquals(2, events.size(), "Devrait avoir 2 EVENTS");
@@ -142,11 +150,11 @@ class ParserContentTest {
     @Test
     void testParse_TodoWithSemicolonInKey() {
         Path file = getTestFile("real_todo.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
         assertFalse(todos.isEmpty(), "Devrait avoir des TODOs");
         
         Todo todo = (Todo) todos.get(0);
@@ -161,11 +169,11 @@ class ParserContentTest {
     @Test
     void testParse_EventMultilineDescription() {
         Path file = getTestFile("real_event.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> events = calender.get(ViewType.EVENTS);
+        List<CalElement> events = calendar.get(ViewType.EVENTS);
         assertFalse(events.isEmpty(), "Devrait avoir des EVENTS");
         
         Event event = (Event) events.get(0);
@@ -179,27 +187,27 @@ class ParserContentTest {
     }
 
     @Test
-    void testParse_EmptyCalender() {
+    void testParse_EmptyCalendar() {
         Path file = getTestFile("empty.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
-        List<CalElement> events = calender.get(ViewType.EVENTS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
+        List<CalElement> events = calendar.get(ViewType.EVENTS);
         
         assertTrue(todos.isEmpty(), "Devrait avoir 0 TODOs");
         assertTrue(events.isEmpty(), "Devrait avoir 0 EVENTS");
     }
     
     @Test
-    void testParse_CalenderInfoInFirstElement() {
+    void testParse_CalendarInfoInFirstElement() {
         Path file = getTestFile("real_todo.ics");
-        Calender calender = parser.parse(file);
+        Calendar calendar = parser.parse(file);
         
-        assertNotNull(calender, "Le calendrier ne devrait pas être null");
+        assertNotNull(calendar, "Le calendrier ne devrait pas être null");
         
-        List<CalElement> todos = calender.get(ViewType.TODOS);
+        List<CalElement> todos = calendar.get(ViewType.TODOS);
         assertFalse(todos.isEmpty(), "Devrait avoir des TODOs");
         
         Todo todo = (Todo) todos.get(0);
