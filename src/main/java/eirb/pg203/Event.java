@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Event extends CalElement {
-
     final private String UID;
     final private String SUMMARY;
     final private String LOCATION;
@@ -37,11 +36,11 @@ public class Event extends CalElement {
         this.DESCRIPTION = DESCRIPTION;
         this.SEQUENCE = SEQUENCE;
     }
+
     @Override
     public ViewType viewType() {
         return ViewType.EVENTS;
     }
-
     
     public String getUid() {
         return this.UID;
@@ -74,14 +73,15 @@ public class Event extends CalElement {
     public LocalDateTime getCreated() {
         return this.CREATED;
     }
+
     public String getDescription() {
         return this.DESCRIPTION;
     }
+
     public Number getSequence() {
         return this.SEQUENCE;
     }
 
-    
     @Override
     public String toString() {
         return """
@@ -107,5 +107,4 @@ public class Event extends CalElement {
                 getLastModified(),
                 getDtStamp());
     }
-
 }

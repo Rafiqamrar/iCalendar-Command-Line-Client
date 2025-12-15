@@ -24,7 +24,7 @@ public class Utils {
     }
 
     
-    public static Number StoNum(String s){
+    public static Number StoNum(String s) {
         if (s == null) return null;
         s = s.trim();
         if (s.isEmpty()) return null;
@@ -34,23 +34,25 @@ public class Utils {
             return null;
         }
     }
+
     private static final DateTimeFormatter DATE = DateTimeFormatter.ofPattern("yyyyMMdd");
     private static final DateTimeFormatter DATETIME = DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss");
+    
     public static LocalDate dateFormatter(String raw) {
         if (raw == null) return null;
         String v = raw.trim();
         if (v.isEmpty()) return null;
 
         try {
-            // Pure date (8 digits)
             if (v.length() == 8 && v.chars().allMatch(Character::isDigit)) {
                 return LocalDate.parse(v, DATE);
             }
             return null;
         } catch (Exception e) {
-            return null; // best-effort: return null if malformed
+            return null;
         }
     }
+
     public static LocalDateTime dateTimeFormatter(String raw) {
         if (raw == null) return null;
         String v = raw.trim();
@@ -65,21 +67,19 @@ public class Utils {
             LocalDateTime ldt = LocalDateTime.parse(v, DATETIME);
             return ldt;
         } catch (Exception e) {
-            return null; // best-effort: return null if malformed
+            return null;
         }
     }
 
-  // takes a path and returns a List<String> of its lines
-  public static List<String> loadLines(Path path) {
-      try {
-          return Files.readAllLines(path);
-      } catch (IOException | SecurityException e) {
-          System.err.println("Error reading file: " + e.getMessage());
-          return new ArrayList<>();
-      }
-  }
-
-
+    // takes a path and returns a List<String> of its lines
+    public static List<String> loadLines(Path path) {
+        try {
+            return Files.readAllLines(path);
+        } catch (IOException | SecurityException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return new ArrayList<>();
+        }
+    }
 }
 
 
