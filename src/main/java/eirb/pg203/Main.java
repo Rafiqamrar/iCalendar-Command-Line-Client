@@ -8,44 +8,59 @@ import eirb.pg203.parser.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class Main
+{
 
-  public static void main(String[] args) {
-    try {
-      CliConfig config = CliParser.parse(args);
+  public static void
+  main (String[] args)
+  {
+    try
+      {
+        CliConfig config = CliParser.parse (args);
 
-      Parser parser = new Parser();
-      Calendar cal = parser.parse(config.getInputFile());
+        Parser parser = new Parser ();
+        Calendar cal = parser.parse (config.getInputFile ());
 
-      List<CalElement> result = new ArrayList<>();
+        List<CalElement> result = new ArrayList<> ();
 
-      if (config.getViewType() == ViewType.EVENTS) {
-        List<Event> events = new ArrayList<>();
-        for (CalElement el : cal.get(ViewType.EVENTS)) {
-          if (el instanceof Event) {
-            events.add((Event)el);
+        if (config.getViewType () == ViewType.EVENTS)
+          {
+            List<Event> events = new ArrayList<> ();
+            for (CalElement el : cal.get (ViewType.EVENTS))
+              {
+                if (el instanceof Event)
+                  {
+                    events.add ((Event)el);
+                  }
+              }
+            List<Event> filteredEvents = EventFilters.filter (events, config);
+            result.addAll (filteredEvents);
           }
-        }
-        List<Event> filteredEvents = EventFilters.filter(events, config);
-        result.addAll(filteredEvents);
-      } else {
-        List<Todo> todos = new ArrayList<>();
-        for (CalElement el : cal.get(ViewType.TODOS)) {
-          if (el instanceof Todo) {
-            todos.add((Todo)el);
+        else
+          {
+            List<Todo> todos = new ArrayList<> ();
+            for (CalElement el : cal.get (ViewType.TODOS))
+              {
+                if (el instanceof Todo)
+                  {
+                    todos.add ((Todo)el);
+                  }
+              }
+            List<Todo> filteredTodos = TodoFilters.filter (todos, config);
+            result.addAll (filteredTodos);
           }
-        }
-        List<Todo> filteredTodos = TodoFilters.filter(todos, config);
-        result.addAll(filteredTodos);
+
+        OutputWriter writer = OutputWriterFactory.create (config);
+        writer.write (result, config.getOutputStream ());
       }
-
-      OutputWriter writer = OutputWriterFactory.create(config);
-      writer.write(result, config.getOutputStream());
-    } catch (CliException e) {
-      System.err.println("Erreur: " + e.getMessage());
-    } catch (Exception e) {
-      System.err.println("Erreur interne: " + e.getMessage());
-      e.printStackTrace();
-    }
+    catch (CliException e)
+      {
+        System.err.println ("Erreur: " + e.getMessage ());
+      }
+    catch (Exception e)
+      {
+        System.err.println ("Erreur interne: " + e.getMessage ());
+        e.printStackTrace ();
+      }
   }
 }

@@ -8,14 +8,21 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.List;
 
-public class EventFilters {
-  public static List<Event> filter(List<Event> events, CliConfig config) {
-    return filterEvents(events, config.getEventFilter(), config.getFrom(), config.getTo());
+public class EventFilters
+{
+  public static List<Event>
+  filter (List<Event> events, CliConfig config)
+  {
+    return filterEvents (events, config.getEventFilter (), config.getFrom (),
+                         config.getTo ());
   }
 
-  public static List<Event> filterEvents(
-      List<Event> events, EventFilterType option, LocalDate fromDate, LocalDate toDate) {
-    return switch (option) {
+  public static List<Event>
+  filterEvents (List<Event> events, EventFilterType option, LocalDate fromDate,
+                LocalDate toDate)
+  {
+    return switch (option)
+    {
             case TODAY -> filterByDate(events, LocalDate.now());
             case TOMORROW -> filterByDate(events, LocalDate.now().plusDays(1));
             case WEEK -> filterByWeek(events, LocalDate.now());

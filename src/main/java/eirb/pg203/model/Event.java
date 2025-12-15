@@ -3,7 +3,8 @@ package eirb.pg203.model;
 import java.time.LocalDateTime;
 import java.util.Map;
 
-public class Event extends CalElement {
+public class Event extends CalElement
+{
   final private String UID;
   final private String SUMMARY;
   final private String LOCATION;
@@ -15,15 +16,19 @@ public class Event extends CalElement {
   final private String DESCRIPTION;
   final private Number SEQUENCE;
 
-  public Event(String uid, String summary, String location, LocalDateTime last_modified,
-      LocalDateTime dtstamp, LocalDateTime dtstart, LocalDateTime dtend, LocalDateTime created,
-      String description, Number sequence) {
-    if (uid == null || uid.isEmpty()) {
-      throw new IllegalArgumentException("UID was not provided");
-    }
-    if (dtstart == null) {
-      throw new IllegalArgumentException("DTSTART ne peut pas être null");
-    }
+  public Event (String uid, String summary, String location,
+                LocalDateTime last_modified, LocalDateTime dtstamp,
+                LocalDateTime dtstart, LocalDateTime dtend,
+                LocalDateTime created, String description, Number sequence)
+  {
+    if (uid == null || uid.isEmpty ())
+      {
+        throw new IllegalArgumentException ("UID was not provided");
+      }
+    if (dtstart == null)
+      {
+        throw new IllegalArgumentException ("DTSTART ne peut pas être null");
+      }
     this.UID = uid;
     this.SUMMARY = summary;
     this.LOCATION = location;
@@ -37,52 +42,76 @@ public class Event extends CalElement {
   }
 
   @Override
-  public ViewType viewType() {
+  public ViewType
+  viewType ()
+  {
     return ViewType.EVENTS;
   }
 
-  public String getUid() {
+  public String
+  getUid ()
+  {
     return this.UID;
   }
 
-  public String getSummary() {
+  public String
+  getSummary ()
+  {
     return this.SUMMARY;
   }
 
-  public String getLocation() {
+  public String
+  getLocation ()
+  {
     return this.LOCATION;
   }
 
-  public LocalDateTime getLastModified() {
+  public LocalDateTime
+  getLastModified ()
+  {
     return this.LAST_MODIFIED;
   }
 
-  public LocalDateTime getDtStamp() {
+  public LocalDateTime
+  getDtStamp ()
+  {
     return this.DTSTAMP;
   }
 
-  public LocalDateTime getStart() {
+  public LocalDateTime
+  getStart ()
+  {
     return this.DTSTART;
   }
 
-  public LocalDateTime getEnd() {
+  public LocalDateTime
+  getEnd ()
+  {
     return this.DTEND;
   }
 
-  public LocalDateTime getCreated() {
+  public LocalDateTime
+  getCreated ()
+  {
     return this.CREATED;
   }
 
-  public String getDescription() {
+  public String
+  getDescription ()
+  {
     return this.DESCRIPTION;
   }
 
-  public Number getSequence() {
+  public Number
+  getSequence ()
+  {
     return this.SEQUENCE;
   }
 
   @Override
-  public String toString() {
+  public String
+  toString ()
+  {
         return """
                 [EVENT] =========
                 Summary      : %s
