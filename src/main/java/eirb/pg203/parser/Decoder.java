@@ -68,8 +68,7 @@ public class Decoder
     return value;
   }
 
-  public static Todo
-  makeTodo (Map<String, String> map)
+  public static Todo makeTodo (Map<String, String> map)
   {
     String UID = map.get ("UID");
     String SUMMARY = map.get ("SUMMARY");
