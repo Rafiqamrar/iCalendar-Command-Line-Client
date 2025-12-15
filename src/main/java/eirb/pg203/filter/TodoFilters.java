@@ -16,33 +16,43 @@ public class TodoFilters
   public static List<Todo>
   filterTodos (List<Todo> todos, TodoFilterType option)
   {
-    return switch (option)
-    {
-            case ALL -> todos;
-            case COMPLETED -> filterByStatus(todos, "COMPLETED");
-            case INPROCESS -> filterByStatus(todos, "INPROCESS");
-            case NEEDSACTION -> filterByStatus(todos, "NEEDSACTION");
-            case INCOMPLETE -> filterIncomplete(todos);
-        };
-    }
-    
-    private static List<Todo> filterByStatus(List<Todo> todos, String status) {
-        return todos.stream()
-            .filter(todo -> {
-                String todoStatus = todo.getStatus();
-                return todoStatus != null && todoStatus.equalsIgnoreCase(status);
-            })
-            .toList();
-    }
-    
-    private static List<Todo> filterIncomplete(List<Todo> todos) {
-        return todos.stream()
-            .filter(todo -> {
-                String status = todo.getStatus();
-                return status == null || 
-                       status.isEmpty() || 
-                       !"COMPLETED".equalsIgnoreCase(status);
-            })
-            .toList();
-    }
+    switch (option)
+      {
+      case ALL:
+        return todos;
+      case COMPLETED:
+        return filterByStatus (todos, "COMPLETED");
+      case INPROCESS:
+        return filterByStatus (todos, "INPROCESS");
+      case NEEDSACTION:
+        return filterByStatus (todos, "NEEDSACTION");
+      case INCOMPLETE:
+        return filterIncomplete (todos);
+      default:
+        return todos;
+      }
+  }
+
+  private static List<Todo>
+  filterByStatus (List<Todo> todos, String status)
+  {
+    return todos.stream ()
+        .filter (todo -> {
+          String todoStatus = todo.getStatus ();
+          return todoStatus != null && todoStatus.equalsIgnoreCase (status);
+        })
+        .toList ();
+  }
+
+  private static List<Todo>
+  filterIncomplete (List<Todo> todos)
+  {
+    return todos.stream ()
+        .filter (todo -> {
+          String status = todo.getStatus ();
+          return status == null || status.isEmpty ()
+              || !"COMPLETED".equalsIgnoreCase (status);
+        })
+        .toList ();
+  }
 }

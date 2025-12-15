@@ -4,15 +4,19 @@ import eirb.pg203.cli.CliConfig;
 
 public class OutputWriterFactory
 {
-
   public static OutputWriter
   create (CliConfig config)
   {
-    return switch (config.getOutputFormat ())
-    {
-            case TEXT -> new TextWriter();
-            case ICS -> new IcsWriter();
-            case HTML -> new HtmlWriter();
-        };
-    }
+    switch (config.getOutputFormat ())
+      {
+      case TEXT:
+        return new TextWriter ();
+      case ICS:
+        return new IcsWriter ();
+      case HTML:
+        return new HtmlWriter ();
+      default:
+        return new TextWriter ();
+      }
+  }
 }
