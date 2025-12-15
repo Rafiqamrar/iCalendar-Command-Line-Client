@@ -1,10 +1,12 @@
 package eirb.pg203;
+
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+
 public class Decoder {
     // "ORGANIZER;CN=X" : "Y" -> X
     // Returns null if no CN is present.
@@ -122,7 +124,7 @@ public class Decoder {
         }
         Map<String, String> header = maps.get(0);
 
-        // List<CalElement> els =maps.subList(1, maps.size()) 
+    // List<CalElement> els =maps.subList(1, maps.size()) 
     List<CalElement> els = maps.subList(1, maps.size())
         .stream()
         .map(Decoder::calElement)
