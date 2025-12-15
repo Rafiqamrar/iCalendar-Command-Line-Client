@@ -10,23 +10,23 @@ public class Todo extends CalElement
   final private String SUMMARY;
   final private String LOCATION;
   final private String STATUS;
-  final private Number PERCENT_COMPLETE;
+  final private Integer PERCENT_COMPLETE;
   final private LocalDateTime COMPLETED;
   final private LocalDate DUE;
   final private LocalDate DTSTART;
   final private String CLASS;
-  final private Number PRIORITY;
+  final private Integer PRIORITY;
   final private LocalDateTime LAST_MODIFIED;
   final private LocalDateTime DTSTAMP;
-  final private Number SEQUENCE;
+  final private Integer SEQUENCE;
   final private String ORGANIZER_name;
   final private String ORGANIZER_mail;
 
   public Todo (String uid, String summary, String location, String status,
-               Number percent_complete, LocalDateTime completed, LocalDate due,
-               LocalDate dtstart, String todo_class, Number priority,
+               Integer percent_complete, LocalDateTime completed, LocalDate due,
+               LocalDate dtstart, String todo_class, Integer priority,
                LocalDateTime last_modified, LocalDateTime dtstamp,
-               Number sequence, String organizer_name, String organizer_mail)
+               Integer sequence, String organizer_name, String organizer_mail)
   {
     if (uid == null || uid.isEmpty ())
       {
@@ -79,7 +79,7 @@ public class Todo extends CalElement
     return this.STATUS;
   }
 
-  public Number
+  public Integer
   getPercentComplete ()
   {
     return this.PERCENT_COMPLETE;
@@ -107,7 +107,7 @@ public class Todo extends CalElement
     return this.CLASS;
   }
 
-  public Number
+  public Integer
   getPriority ()
   {
     return this.PRIORITY;
@@ -125,7 +125,7 @@ public class Todo extends CalElement
     return this.DTSTAMP;
   }
 
-  public Number
+  public Integer
   getSequence ()
   {
     return this.SEQUENCE;

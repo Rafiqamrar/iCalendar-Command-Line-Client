@@ -14,12 +14,12 @@ public class Event extends CalElement
   final private LocalDateTime DTEND;
   final private LocalDateTime CREATED;
   final private String DESCRIPTION;
-  final private Number SEQUENCE;
+  final private Integer SEQUENCE;
 
   public Event (String uid, String summary, String location,
                 LocalDateTime last_modified, LocalDateTime dtstamp,
                 LocalDateTime dtstart, LocalDateTime dtend,
-                LocalDateTime created, String description, Number sequence)
+                LocalDateTime created, String description, Integer sequence)
   {
     if (uid == null || uid.isEmpty ())
       {
@@ -102,7 +102,7 @@ public class Event extends CalElement
     return this.DESCRIPTION;
   }
 
-  public Number
+  public Integer
   getSequence ()
   {
     return this.SEQUENCE;

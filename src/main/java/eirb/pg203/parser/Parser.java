@@ -14,8 +14,7 @@ public class Parser implements IcsParser
   // this will add only 'BEGIN:*' to all chunks, cuz 'END:*' doesnt matter
   // !! first 'chunk' is for info about the calendar starting with
   // 'BEGIN:VCALENDR'
-  private List<String>
-  fileToChunks (Path path)
+  private List<String> fileToChunks (Path path)
   {
     List<String> l = Utils.loadLines (path);
     List<String> chunks = new ArrayList<> ();
@@ -42,45 +41,46 @@ public class Parser implements IcsParser
     return chunks;
   }
 
-  private Map<String, String>
-  parseChunk (String chunk)
-  {
-    Map<String, String> map = new HashMap<> ();
-    String[] lines = chunk.split ("\n");
+  private Map<String, String> parseChunk(String chunk) {
+    Map<String, String> map = new HashMap<>();
+    String[] lines = chunk.split("\n");
 
     String currKey = null;
-    String currVal = "";
+    StringBuilder currVal = new StringBuilder(); 
 
-    for (String l : lines)
-      {
-        l = l.trim ();
-        int colonIndex = l.indexOf (':');
-        if (colonIndex != -1)
-          {
-            String possibleKey = l.substring (0, colonIndex);
-            if (this.isKey (possibleKey))
-              {
-                // if theres already a key saved : put it in map first
-                if (currKey != null)
-                  {
-                    map.put (currKey, currVal.toString ());
-                  }
+    for (String l : lines) {
+        l = l.trim();
+        int colonIndex = l.indexOf(':');
+        
+        if (colonIndex != -1) {
+            String possibleKey = l.substring(0, colonIndex);
+            
+            if (this.isKey(possibleKey)) {
+                // Si il y a déjà une clé sauvegardée on la met dans la map
+                if (currKey != null) {
+                    map.put(currKey, currVal.toString());
+                }
+                
                 currKey = possibleKey;
-                currVal = l.substring (colonIndex + 1);
+                currVal = new StringBuilder(l.substring(colonIndex + 1)); 
                 continue;
-              }
-          }
-        // Continuation of previous value
-        currVal = currVal + "\n" + l;
-      }
+            }
+        }
+        
+        // Continuation de la valeur précédente
+        if (currVal.length() > 0) {
+            currVal.append("\n");
+        }
+        currVal.append(l);
+    }
 
-    // Add the last key-value
-    if (currKey != null)
-      {
-        map.put (currKey, currVal.toString ());
-      }
+    // Ajouter la dernière paire clé-valeur
+    if (currKey != null) {
+        map.put(currKey, currVal.toString());
+    }
+    
     return map;
-  }
+}
 
   private boolean
   isKey (String s)

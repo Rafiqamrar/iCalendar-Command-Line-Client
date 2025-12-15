@@ -26,7 +26,7 @@ public class Utils
     return LocalDate.parse (result, formatter);
   }
 
-  public static Number
+  public static Integer
   StoNum (String s)
   {
     if (s == null)

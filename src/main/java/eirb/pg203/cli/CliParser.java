@@ -5,39 +5,66 @@ import eirb.pg203.output.OutputFormat;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class CliParser
 {
 
-  // Formatter pour les dates au format YYYYMMDD
   private static final DateTimeFormatter DATE_YYYYMMDD
-      = DateTimeFormatter.ofPattern ("yyyyMMdd");
+      = DateTimeFormatter.ofPattern("yyyyMMdd");
 
-  public static CliConfig
-  parse (String[] args)
-  {
+  /**
+   * Vérifie qu'un argument supplémentaire existe après une option.
+   * 
+   * @param args Tableau des arguments
+   * @param currentIndex Index actuel
+   * @param optionName Nom de l'option pour le message d'erreur
+   * @throws CliException Si l'argument manque
+   */
+  private static void validateNextArgument(String[] args, int currentIndex, 
+                                           String optionName) {
+    if (currentIndex + 1 >= args.length) {
+      throw new CliException(
+          "L'option " + optionName + " nécessite un argument");
+    }
+  }
 
-    if (args.length < 2)
-      {
-        throw new CliException (
-            "Usage: clical <file> <events|todos> [options]");
-      }
+  /**
+   * Parse une date au format YYYYMMDD.
+   * 
+   * @param dateString La chaîne à parser
+   * @param optionName Nom de l'option pour le message d'erreur
+   * @return LocalDate parsée
+   * @throws CliException Si le format est invalide
+   */
+  private static LocalDate parseDate(String dateString, String optionName) {
+    try {
+      return LocalDate.parse(dateString, DATE_YYYYMMDD);
+    } catch (DateTimeParseException e) {
+      throw new CliException(
+          "Format de date invalide pour " + optionName + 
+          ": attendu YYYYMMDD, reçu '" + dateString + "'");
+    }
+  }
 
-    Path inputFile = Path.of (args[0]);
+  public static CliConfig parse(String[] args) {
+
+    if (args.length < 2) {
+      throw new CliException(
+          "Usage: clical <file> <events|todos> [options]");
+    }
+
+    Path inputFile = Path.of(args[0]);
 
     ViewType viewType;
-    if (args[1].equals ("events"))
-      {
-        viewType = ViewType.EVENTS;
-      }
-    else if (args[1].equals ("todos"))
-      {
-        viewType = ViewType.TODOS;
-      }
-    else
-      {
-        throw new CliException ("events ou todos attendu");
-      }
+    if (args[1].equals("events")) {
+      viewType = ViewType.EVENTS;
+    } else if (args[1].equals("todos")) {
+      viewType = ViewType.TODOS;
+    } else {
+      throw new CliException(
+          "Type invalide: '" + args[1] + "'. Attendu: 'events' ou 'todos'");
+    }
 
     EventFilterType eventFilter = EventFilterType.TODAY;
     TodoFilterType todoFilter = TodoFilterType.INCOMPLETE;
@@ -48,82 +75,95 @@ public class CliParser
     OutputFormat format = OutputFormat.TEXT;
     Path outputFile = null;
 
-    for (int i = 2; i < args.length; i++)
-      {
+    for (int i = 2; i < args.length; i++) {
 
-        switch (args[i])
-          {
+      switch (args[i]) {
 
-          // EVENTS
-          case "-today":
-            eventFilter = EventFilterType.TODAY;
-            break;
-          case "-tomorrow":
-            eventFilter = EventFilterType.TOMORROW;
-            break;
-          case "-week":
-            eventFilter = EventFilterType.WEEK;
-            break;
-          case "-from":
-            from = LocalDate.parse (args[++i],
-                                    DATE_YYYYMMDD); // parse avec le formatter
-            eventFilter = EventFilterType.RANGE;
-            break;
-          case "-to":
-            to = LocalDate.parse (args[++i],
-                                  DATE_YYYYMMDD); // parse avec le formatter
-            break;
+        // EVENTS FILTERS
+        case "-today":
+          eventFilter = EventFilterType.TODAY;
+          break;
+          
+        case "-tomorrow":
+          eventFilter = EventFilterType.TOMORROW;
+          break;
+          
+        case "-week":
+          eventFilter = EventFilterType.WEEK;
+          break;
+          
+        case "-from":
+          validateNextArgument(args, i, "-from");
+          from = parseDate(args[++i], "-from");
+          eventFilter = EventFilterType.RANGE;
+          break;
+          
+        case "-to":
+          validateNextArgument(args, i, "-to");
+          to = parseDate(args[++i], "-to");
+          break;
 
-          // TODOS
-          case "-all":
-            todoFilter = TodoFilterType.ALL;
-            break;
-          case "-completed":
-            todoFilter = TodoFilterType.COMPLETED;
-            break;
-          case "-inprocess":
-            todoFilter = TodoFilterType.INPROCESS;
-            break;
-          case "-needsaction":
-            todoFilter = TodoFilterType.NEEDSACTION;
-            break;
-          case "-incomplete":
-            todoFilter = TodoFilterType.INCOMPLETE;
-            break;
+        // TODOS FILTERS
+        case "-all":
+          todoFilter = TodoFilterType.ALL;
+          break;
+          
+        case "-completed":
+          todoFilter = TodoFilterType.COMPLETED;
+          break;
+          
+        case "-inprocess":
+          todoFilter = TodoFilterType.INPROCESS;
+          break;
+          
+        case "-needsaction":
+          todoFilter = TodoFilterType.NEEDSACTION;
+          break;
+          
+        case "-incomplete":
+          todoFilter = TodoFilterType.INCOMPLETE;
+          break;
 
-          // OUTPUT
-          case "-text":
-            format = OutputFormat.TEXT;
-            break;
-          case "-ics":
-            format = OutputFormat.ICS;
-            break;
-          case "-html":
-            format = OutputFormat.HTML;
-            break;
-          case "-o":
-            outputFile = Path.of (args[++i]);
-            break;
+        // OUTPUT FORMAT
+        case "-text":
+          format = OutputFormat.TEXT;
+          break;
+          
+        case "-ics":
+          format = OutputFormat.ICS;
+          break;
+          
+        case "-html":
+          format = OutputFormat.HTML;
+          break;
+          
+        case "-o":
+          validateNextArgument(args, i, "-o");
+          outputFile = Path.of(args[++i]);
+          break;
 
-          default:
-            throw new CliException ("Option inconnue: " + args[i]);
-          }
+        default:
+          throw new CliException("Option inconnue: " + args[i]);
       }
+    }
 
     // VALIDATION
-    if (viewType == ViewType.TODOS && (from != null || to != null))
-      {
-        throw new CliException (
-            "Les options -from/-to sont interdites pour les TODOS");
-      }
+    if (viewType == ViewType.TODOS && (from != null || to != null)) {
+      throw new CliException(
+          "Les options -from/-to sont interdites pour les TODOS");
+    }
 
-    if (eventFilter == EventFilterType.RANGE && (from == null || to == null))
-      {
-        throw new CliException (
-            "Les options -from et -to doivent être utilisées ensemble");
-      }
+    if (eventFilter == EventFilterType.RANGE && (from == null || to == null)) {
+      throw new CliException(
+          "Les options -from et -to doivent être utilisées ensemble");
+    }
+    
+    if (from != null && to != null && from.isAfter(to)) {
+      throw new CliException(
+          "La date -from (" + from + ") ne peut pas être après -to (" + to + ")");
+    }
 
-    return new CliConfig (inputFile, viewType, eventFilter, todoFilter, from,
+    return new CliConfig(inputFile, viewType, eventFilter, todoFilter, from,
                           to, format, outputFile);
   }
 }

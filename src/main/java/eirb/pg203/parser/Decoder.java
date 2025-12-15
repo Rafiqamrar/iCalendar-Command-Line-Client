@@ -75,16 +75,16 @@ public class Decoder
     String SUMMARY = map.get ("SUMMARY");
     String LOCATION = map.get ("LOCATION");
     String STATUS = map.get ("STATUS");
-    Number PERCENT_COMPLETE = Utils.StoNum (map.get ("PERCENT-COMPLETE"));
+    Integer PERCENT_COMPLETE = Utils.StoNum (map.get ("PERCENT-COMPLETE"));
     LocalDateTime COMPLETED = Utils.dateTimeFormatter (map.get ("COMPLETED"));
     LocalDate DUE = Utils.dateFormatter (map.get ("DUE;VALUE=DATE"));
     LocalDate DTSTART = Utils.dateFormatter (map.get ("DTSTART;VALUE=DATE"));
     String CLASS = map.get ("CLASS");
-    Number PRIORITY = Utils.StoNum (map.get ("PRIORITY"));
+    Integer PRIORITY = Utils.StoNum (map.get ("PRIORITY"));
     LocalDateTime LAST_MODIFIED
         = Utils.dateTimeFormatter (map.get ("LAST-MODIFIED"));
     LocalDateTime DTSTAMP = Utils.dateTimeFormatter (map.get ("DTSTAMP"));
-    Number SEQUENCE = Utils.StoNum (map.get ("SEQUENCE"));
+    Integer SEQUENCE = Utils.StoNum (map.get ("SEQUENCE"));
     String ORGANIZER_name = Decoder.getOname (map);
     String ORGANIZER_mail = Decoder.getOmail (map);
     return new Todo (UID, SUMMARY, LOCATION, STATUS, PERCENT_COMPLETE,
@@ -105,7 +105,7 @@ public class Decoder
     LocalDateTime DTEND = Utils.dateTimeFormatter (map.get ("DTEND"));
     LocalDateTime CREATED = Utils.dateTimeFormatter (map.get ("CREATED"));
     String DESCRIPTION = map.get ("DESCRIPTION");
-    Number SEQUENCE = Utils.StoNum (map.get ("SEQUENCE"));
+    Integer SEQUENCE = Utils.StoNum (map.get ("SEQUENCE"));
     return new Event (UID, SUMMARY, LOCATION, LAST_MODIFIED, DTSTAMP, DTSTART,
                       DTEND, CREATED, DESCRIPTION, SEQUENCE);
   }
