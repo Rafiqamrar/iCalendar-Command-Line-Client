@@ -5,7 +5,7 @@ package eirb.pg203.cli;
  */
 public enum OutputFormat
 {
-  TEXT,   // Sortie standard (console)
-  ICS,    // Format ICS
-  HTML    // Format HTML
+  TEXT, // Sortie standard (console)
+  ICS,  // Format ICS
+  HTML  // Format HTML
 }

@@ -9,7 +9,7 @@ public class OutputWriterFactory
 {
   /**
    * Crée un OutputWriter d'après le format spécifié dans la configuration CLI.
-   * 
+   *
    * @param config Configuration CLI contenant le format de sortie
    * @return Instance de OutputWriter (TextWriter, IcsWriter ou HtmlWriter)
    */

@@ -25,12 +25,14 @@ public class Main
 
         if (config.getViewType () == ViewType.EVENTS)
           {
-            List<Event> filteredEvents = EventFilters.filter (cal.getEvents(), config);
+            List<Event> filteredEvents
+                = EventFilters.filter (cal.getEvents (), config);
             result.addAll (filteredEvents);
           }
         else
           {
-            List<Todo> filteredTodos = TodoFilters.filter (cal.getTodos(), config);
+            List<Todo> filteredTodos
+                = TodoFilters.filter (cal.getTodos (), config);
             result.addAll (filteredTodos);
           }
 

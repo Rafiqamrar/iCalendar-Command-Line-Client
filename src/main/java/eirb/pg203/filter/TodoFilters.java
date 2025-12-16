@@ -13,7 +13,7 @@ public class TodoFilters
   /**
    * Filtre une liste de TODOs en utilisant la configuration CLI.
    * Méthode principale appelée depuis le flux principal du programme.
-   * 
+   *
    * @param todos Liste complète des TODOs à filtrer
    * @param config Configuration CLI contenant le type de filtre à appliquer
    * @return Liste filtrée des TODOs
@@ -26,7 +26,7 @@ public class TodoFilters
 
   /**
    * Filtre une liste de TODOs selon un type de filtre spécifique.
-   * 
+   *
    * @param todos Liste complète des TODOs
    * @param option Type de filtre à appliquer
    * @return Liste filtrée des TODOs
@@ -53,7 +53,7 @@ public class TodoFilters
 
   /**
    * Filtre les TODOs ayant un statut spécifique.
-   * 
+   *
    * @param todos Liste complète des TODOs
    * @param status Statut à rechercher
    * @return TODOs ayant ce statut
@@ -75,7 +75,7 @@ public class TodoFilters
    * - TODOs sans statut (null)
    * - TODOs avec statut vide
    * - TODOs avec statut différent de "COMPLETED"
-   * 
+   *
    * @param todos Liste complète des TODOs
    * @return TODOs considérés comme incomplets
    */

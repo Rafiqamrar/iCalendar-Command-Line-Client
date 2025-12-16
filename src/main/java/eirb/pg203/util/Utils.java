@@ -22,7 +22,7 @@ public class Utils
   /**
    * Convertit une chaîne au format "yyyyMMdd" en objet LocalDate.
    * Ex: "20231225" -> LocalDate du 25 décembre 2023.
-   * 
+   *
    * @param date Chaîne de 8 chiffres représentant une date
    * @return LocalDate correspondante, ou null si le format est invalide
    */
@@ -42,7 +42,7 @@ public class Utils
   /**
    * Convertit une chaîne en Integer.
    * Retourne null si la chaîne est nulle, vide, ou non numérique.
-   * 
+   *
    * @param s Chaîne à convertir
    * @return Integer correspondant, ou null si conversion impossible
    */
@@ -73,7 +73,7 @@ public class Utils
   /**
    * Parse une chaîne ICS représentant une date (format yyyyMMdd).
    * Utilisé pour des champs comme DUE;VALUE=DATE ou DTSTART;VALUE=DATE.
-   * 
+   *
    * @param raw Chaîne du fichier ICS
    * @return LocalDate correspondante, ou null si invalide
    */
@@ -101,9 +101,10 @@ public class Utils
   }
 
   /**
-   * Parse une chaîne ICS représentant une date-heure (format yyyyMMdd'T'HHmmss).
-   * Utilisé pour des champs comme DTSTART, DTEND, CREATED, etc.
-   * 
+   * Parse une chaîne ICS représentant une date-heure (format
+   * yyyyMMdd'T'HHmmss). Utilisé pour des champs comme DTSTART, DTEND, CREATED,
+   * etc.
+   *
    * @param raw Chaîne du fichier ICS
    * @return LocalDateTime correspondante, ou null si invalide
    */
@@ -135,7 +136,7 @@ public class Utils
 
   /**
    * Lit toutes les lignes d'un fichier et les retourne sous forme de liste.
-   * 
+   *
    * @param path Chemin vers le fichier à lire
    * @return Liste des lignes du fichier, ou liste vide en cas d'erreur
    */

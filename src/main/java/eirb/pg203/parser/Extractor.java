@@ -1,20 +1,20 @@
 // File: Extractor.java
 package eirb.pg203.parser;
 
+import eirb.pg203.util.Utils;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import eirb.pg203.util.Utils;
-
 /**
  * Classe pour extraire et parser les blocs d'un fichier ICS.
  * Divise le fichier en "chunks" (blocs) correspondant aux sections BEGIN/END,
  * puis parse chaque chunk en une Map clé/valeur.
  */
-class Extractor {
+class Extractor
+{
   /**
    * Lit un fichier ICS et le divise en blocs délimités par BEGIN: et END:.
    * Le premier bloc est le header du calendrier (BEGIN:VCALENDAR).
@@ -22,7 +22,8 @@ class Extractor {
    * @param path Chemin vers le fichier ICS
    * @return Liste des blocs sous forme de chaînes de caractères
    */
-  List<String> fileToChunks (Path path)
+  List<String>
+  fileToChunks (Path path)
   {
     List<String> l = Utils.loadLines (path);
     List<String> chunks = new ArrayList<> ();
@@ -57,7 +58,8 @@ class Extractor {
    * @param chunk Bloc ICS sous forme de chaîne
    * @return Map des propriétés extraites
    */
-  Map<String, String> parseChunk (String chunk)
+  Map<String, String>
+  parseChunk (String chunk)
   {
     Map<String, String> map = new HashMap<> ();
     String[] lines = chunk.split ("\n");
@@ -106,9 +108,11 @@ class Extractor {
   }
 
   /**
-   * Détermine si une chaîne est une clé ICS valide (contient lettres, chiffres, ;, =, -, ")
+   * Détermine si une chaîne est une clé ICS valide (contient lettres,
+   * chiffres, ;, =, -, ")
    */
-  private boolean isKey (String s)
+  private boolean
+  isKey (String s)
   {
     return s != null && s.matches ("[A-Za-z;\"=-]+");
   }

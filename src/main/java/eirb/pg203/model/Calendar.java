@@ -24,37 +24,42 @@ public class Calendar
     this.list = (els == null) ? new ArrayList<> () : new ArrayList<> (els);
   }
   public List<CalElement>
-  getAll(){
+  getAll ()
+  {
     return list;
   }
   public List<Event>
-  getEvents() throws Exception
+  getEvents () throws Exception
   {
     List<Event> res = new ArrayList<> ();
     for (CalElement el : list)
       {
         if (el.viewType () == ViewType.EVENTS)
           {
-            if( ! (el instanceof Event)) {
-              throw new Exception("CalElment with type : EVENT is not instance of Event");
-            }
-            res.add((Event)el);
+            if (!(el instanceof Event))
+              {
+                throw new Exception (
+                    "CalElment with type : EVENT is not instance of Event");
+              }
+            res.add ((Event)el);
           }
       }
     return res;
   }
   public List<Todo>
-  getTodos() throws Exception
+  getTodos () throws Exception
   {
     List<Todo> res = new ArrayList<> ();
     for (CalElement el : list)
       {
         if (el.viewType () == ViewType.TODOS)
           {
-            if( ! (el instanceof Todo)) {
-              throw new Exception("CalElment with type : TODO is not instance of Todo");
-            }
-            res.add((Todo)el);
+            if (!(el instanceof Todo))
+              {
+                throw new Exception (
+                    "CalElment with type : TODO is not instance of Todo");
+              }
+            res.add ((Todo)el);
           }
       }
     return res;

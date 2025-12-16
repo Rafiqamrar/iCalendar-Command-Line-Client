@@ -25,24 +25,30 @@ class ParserTest
   {
     Path file = getTestFile ("simple_todo.ics");
     Calendar calendar = parser.parse (file);
-    assertNotNull (calendar, "Calendrier ne devrait pas être null pour simple_todo.ics");
-    assert calendar.getTodos().size() == 1 : "Calendrier doit contenir un seul Todo";
-    assert calendar.getEvents().size() == 0 : "Calendrier doit contenir 0 Events";
-    assert calendar.getAll().size() ==  1 : "Calendrier doit contenir 1 élement";
+    assertNotNull (calendar,
+                   "Calendrier ne devrait pas être null pour simple_todo.ics");
+    assert calendar.getTodos ().size ()
+        == 1 : "Calendrier doit contenir un seul Todo";
+    assert calendar.getEvents ().size ()
+        == 0 : "Calendrier doit contenir 0 Events";
+    assert calendar.getAll ().size ()
+        == 1 : "Calendrier doit contenir 1 élement";
   }
 
   @Test
   void
-  parserTest_EventSomeFields  () throws Exception
+  parserTest_EventSomeFields () throws Exception
   {
     Path file = getTestFile ("simple_event.ics");
     Calendar calendar = parser.parse (file);
     assertNotNull (
         calendar, "Calendrier ne devrait pas être null pour simple_event.ics");
-    assert calendar.getTodos().size() == 0 : "Calendrier doit contenir 0 Todo";
-    assert calendar.getEvents().size() == 1 : "Calendrier doit contenir 1 Events";
-    assert calendar.getAll().size() ==  1 : "Calendrier doit contenir 1 élement";
-
+    assert calendar.getTodos ().size ()
+        == 0 : "Calendrier doit contenir 0 Todo";
+    assert calendar.getEvents ().size ()
+        == 1 : "Calendrier doit contenir 1 Events";
+    assert calendar.getAll ().size ()
+        == 1 : "Calendrier doit contenir 1 élement";
   }
 
   @Test
@@ -53,9 +59,12 @@ class ParserTest
     Calendar calendar = parser.parse (file);
     assertNotNull (calendar,
                    "Calendrier ne devrait pas être null pour real_todo.ics");
-    assert calendar.getTodos().size() == 1 : "Calendrier doit contenir un seul Todo";
-    assert calendar.getEvents().size() == 0 : "Calendrier doit contenir 0 Events";
-    assert calendar.getAll().size() ==  1 : "Calendrier doit contenir 1 élement";
+    assert calendar.getTodos ().size ()
+        == 1 : "Calendrier doit contenir un seul Todo";
+    assert calendar.getEvents ().size ()
+        == 0 : "Calendrier doit contenir 0 Events";
+    assert calendar.getAll ().size ()
+        == 1 : "Calendrier doit contenir 1 élement";
   }
 
   @Test
@@ -66,9 +75,12 @@ class ParserTest
     Calendar calendar = parser.parse (file);
     assertNotNull (calendar,
                    "Calendrier ne devrait pas être null pour real_event.ics");
-    assert calendar.getTodos().size() == 0 : "Calendrier doit contenir 0 Todo";
-    assert calendar.getEvents().size() == 1 : "Calendrier doit contenir 1 Events";
-    assert calendar.getAll().size() ==  1 : "Calendrier doit contenir 1 élement";
+    assert calendar.getTodos ().size ()
+        == 0 : "Calendrier doit contenir 0 Todo";
+    assert calendar.getEvents ().size ()
+        == 1 : "Calendrier doit contenir 1 Events";
+    assert calendar.getAll ().size ()
+        == 1 : "Calendrier doit contenir 1 élement";
   }
 
   @Test
@@ -80,8 +92,11 @@ class ParserTest
     assertNotNull (
         calendar,
         "Calendrier ne devrait pas être null pour multiple_items.ics");
-    assert calendar.getTodos().size() == 2 : "Calendrier doit contenir 2 Todo";
-    assert calendar.getEvents().size() == 2 : "Calendrier doit contenir 2 Events";
-    assert calendar.getAll().size() ==  4 : "Calendrier doit contenir 4 élement";
+    assert calendar.getTodos ().size ()
+        == 2 : "Calendrier doit contenir 2 Todo";
+    assert calendar.getEvents ().size ()
+        == 2 : "Calendrier doit contenir 2 Events";
+    assert calendar.getAll ().size ()
+        == 4 : "Calendrier doit contenir 4 élement";
   }
 }

@@ -12,7 +12,7 @@ public interface OutputWriter
 {
   /**
    * Écrit une liste d'éléments de calendrier dans un flux de sortie.
-   * 
+   *
    * @param elements Liste des éléments à écrire (Events ou Todos)
    * @param out Flux de sortie
    */

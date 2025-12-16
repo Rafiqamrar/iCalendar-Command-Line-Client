@@ -2,10 +2,11 @@ package eirb.pg203.model;
 
 import java.time.LocalDateTime;
 import java.util.Map;
-             
+
 /**
  * Représente un événement (VEVENT) d'un fichier ICS.
- * Hérite de CalElement et contient toutes les propriétés spécifiques aux événements
+ * Hérite de CalElement et contient toutes les propriétés spécifiques aux
+ * événements
  */
 public class Event extends CalElement
 {

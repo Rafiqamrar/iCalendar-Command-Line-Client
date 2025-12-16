@@ -15,7 +15,7 @@ public class EventFilters
   /**
    * Filtre une liste d'événements en utilisant la configuration CLI.
    * Méthode principale appelée depuis le flux principal du programme.
-   * 
+   *
    * @param events Liste complète des événements à filtrer
    * @param config Configuration CLI contenant le type de filtre et les dates
    * @return Liste filtrée des événements
@@ -28,8 +28,9 @@ public class EventFilters
   }
 
   /**
-   * Filtre une liste d'événements selon un type de filtre et des dates spécifiques.
-   * 
+   * Filtre une liste d'événements selon un type de filtre et des dates
+   * spécifiques.
+   *
    * @param events Liste complète des événements
    * @param option Type de filtre à appliquer
    * @param fromDate Date de début (pour RANGE)
@@ -57,7 +58,7 @@ public class EventFilters
 
   /**
    * Filtre les événements ayant lieu à une date spécifique.
-   * 
+   *
    * @param events Liste complète des événements
    * @param targetDate Date cible pour le filtrage
    * @return Événements dont la date de début correspond à targetDate
@@ -75,7 +76,7 @@ public class EventFilters
 
   /**
    * Filtre les événements de la semaine courante.
-   * 
+   *
    * @param events Liste complète des événements
    * @param today Date de référence
    * @return Événements dont la date est dans la semaine contenant today
@@ -91,7 +92,7 @@ public class EventFilters
   /**
    * Filtre les événements dans une plage de dates.
    * Inclut les événements dont la date est >= from et <= to.
-   * 
+   *
    * @param events Liste complète des événements
    * @param from Date de début de la plage
    * @param to Date de fin de la plage
@@ -116,7 +117,7 @@ public class EventFilters
   /**
    * Extrait la date d'un événement à partir de sa date de début.
    * Retourne null si l'événement n'a pas de date de début.
-   * 
+   *
    * @param event Événement
    * @return Date locale ou null
    */

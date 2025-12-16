@@ -13,7 +13,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Convertit les Maps de propriétés ICS en objets métier (Event, Todo, Calendar).
+ * Convertit les Maps de propriétés ICS en objets métier (Event, Todo,
+ * Calendar).
  */
 class Decoder
 {
@@ -33,8 +34,9 @@ class Decoder
             int semi = key.indexOf (";CN=");
             if (semi >= 0)
               {
-                // valeur après ";CN=" : "[name]" 
-                String cn = key.substring (semi + 5,key.length()-1);  // pour éliminer ""
+                // valeur après ";CN=" : "[name]"
+                String cn = key.substring (
+                    semi + 5, key.length () - 1); // pour éliminer ""
                 return cn.isEmpty () ? null : cn;
               }
             return null;
@@ -51,7 +53,8 @@ class Decoder
   {
     if (map == null)
       return null;
-    String value = map.get ("ORGANIZER"); // au cas où il n'y a pas de paramètre CN
+    String value
+        = map.get ("ORGANIZER"); // au cas où il n'y a pas de paramètre CN
     if (value == null)
       {
         // Trouve la première clé qui commence par ORGANIZER
@@ -121,8 +124,8 @@ class Decoder
   }
 
   /**
-   * Décide quel type d'élément créer (Event ou Todo) en fonction de la valeur de BEGIN.
-   * Lance une IllegalArgumentException si le type n'est pas reconnu.
+   * Décide quel type d'élément créer (Event ou Todo) en fonction de la valeur
+   * de BEGIN. Lance une IllegalArgumentException si le type n'est pas reconnu.
    */
   CalElement
   calElement (Map<String, String> map)
@@ -132,7 +135,7 @@ class Decoder
     switch (type)
       {
       case "VEVENT":
-        return makeEvent(map);
+        return makeEvent (map);
       case "VTODO":
         return makeTodo (map);
       default:

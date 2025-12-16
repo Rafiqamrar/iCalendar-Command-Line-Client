@@ -13,14 +13,14 @@ import java.time.LocalDate;
 public class CliConfig
 {
 
-  private Path inputFile;            // Chemin du fichier ICS
-  private ViewType viewType;         // Type d'éléments (EVENTS/TODOS)
+  private Path inputFile;    // Chemin du fichier ICS
+  private ViewType viewType; // Type d'éléments (EVENTS/TODOS)
 
   private EventFilterType eventFilter; // Filtre pour événements
   private TodoFilterType todoFilter;   // Filtre pour TODOs
 
-  private LocalDate from;            // Date de début (pour -from)
-  private LocalDate to;              // Date de fin (pour -to)
+  private LocalDate from; // Date de début (pour -from)
+  private LocalDate to;   // Date de fin (pour -to)
 
   private OutputFormat outputFormat; // Format de sortie (TEXT/ICS/HTML)
   private Path outputFile;           // Fichier de sortie (null = stdout)

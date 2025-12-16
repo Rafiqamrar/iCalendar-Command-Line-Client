@@ -5,7 +5,7 @@ package eirb.pg203.model;
  */
 public enum ViewType
 {
-  EVENTS,   // Événements (VEVENT)
-  TODOS,    // Tâches (VTODO)
+  EVENTS, // Événements (VEVENT)
+  TODOS,  // Tâches (VTODO)
   ALL;
 }
