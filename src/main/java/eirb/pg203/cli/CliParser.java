@@ -205,8 +205,7 @@ public class CliParser
     if (from != null && to != null && from.isAfter (to))
       {
         throw new CliException ("La date -from (" + from
-                                + ") ne peut pas être après -to (" + to
-                                + ")");
+                                + ") ne peut pas être après -to (" + to + ")");
       }
 
     return new CliConfig (inputFile, viewType, eventFilter, todoFilter, from,
