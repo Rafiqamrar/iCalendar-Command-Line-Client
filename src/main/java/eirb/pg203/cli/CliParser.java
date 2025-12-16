@@ -6,7 +6,6 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
 import eirb.pg203.model.ViewType;
-import eirb.pg203.output.OutputFormat;
 
 /**
  * Parseur de ligne de commande.

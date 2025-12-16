@@ -17,5 +17,5 @@ public interface OutputWriter
    * @param out Flux de sortie
    */
 
-  void write (List<CalElement> elements, OutputStream out);
+  void write (List<? extends CalElement> elements, OutputStream out);
 }

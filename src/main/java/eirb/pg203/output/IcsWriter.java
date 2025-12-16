@@ -26,7 +26,7 @@ public class IcsWriter implements OutputWriter
 
   @Override
   public void
-  write (List<CalElement> elements, OutputStream out)
+  write (List<? extends CalElement> elements, OutputStream out)
   {
     PrintWriter pw = new PrintWriter (out);
 

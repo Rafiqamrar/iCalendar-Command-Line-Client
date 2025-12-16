@@ -1,4 +1,4 @@
-package eirb.pg203.output;
+package eirb.pg203.cli;
 
 /**
  * Énumération des formats de sortie.

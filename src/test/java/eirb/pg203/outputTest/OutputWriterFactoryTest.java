@@ -7,7 +7,7 @@ import java.nio.file.Paths;
 import eirb.pg203.cli.CliConfig;
 import eirb.pg203.output.HtmlWriter;
 import eirb.pg203.output.IcsWriter;
-import eirb.pg203.output.OutputFormat;
+import eirb.pg203.cli.OutputFormat;
 import eirb.pg203.output.OutputWriter;
 import eirb.pg203.output.OutputWriterFactory;
 import eirb.pg203.output.TextWriter;

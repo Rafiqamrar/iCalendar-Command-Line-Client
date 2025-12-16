@@ -16,10 +16,10 @@ public class TextWriter implements OutputWriter
 
   @Override
   public void
-  write (List<CalElement> elements, OutputStream out)
+  write (List<? extends CalElement> elements, OutputStream out)
   {
     PrintWriter pw = new PrintWriter (out);
-    for (T el : elements)
+    for (CalElement el : elements)
       {
         // Délègue le formatage à la méthode toString() de chaque élément
         pw.println (el.toString ());
