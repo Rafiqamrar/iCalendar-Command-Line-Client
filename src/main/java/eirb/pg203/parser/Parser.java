@@ -22,10 +22,7 @@ public class Parser implements IcsParser {
   public Calendar parse(Path path) {
     Extractor e = new Extractor();
     Decoder d = new Decoder();
-
-    List<String> chunks = e.fileToChunks(path);
-
-    List<Map<String, String>> maps = chunks
+    List<Map<String, String>> maps = e.fileToChunks(path)
         .stream()
         .map(e::parseChunk)
         .collect(Collectors.toList());

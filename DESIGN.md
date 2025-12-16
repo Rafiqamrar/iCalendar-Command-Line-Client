@@ -14,8 +14,11 @@ Décrivez ici le schéma général de votre programme. Quels sont les composants
 
 Comment utilisez-vous le polymorphisme dans votre programme?
 
-OutputWriter (interface) avec plusieurs implémentations (HtmlWriter, IcsWriter, TextWriter). Le Main manipule un OutputWriter abstrait et n’a pas besoin de connaître le type concret. C’est le factory qui décide.
-CalElement est une classe mère abstraite dont héritent Event et Todo. Même si le Main fait encore des instanceof, l’intention est là : une même collection peut contenir des formes différentes (événements ou todos).
+Nous utilisons le polymorphisme principalement via des interfaces.
+
+Par exemple, OutputWriter (interface) avec plusieurs implémentations (HtmlWriter, IcsWriter, TextWriter). Le Main manipule un OutputWriter abstrait et n’a pas besoin de connaître le type concret. C’est le factory qui décide.
+
+l’interface ICSParser définit le contrat de parsing, et nous avons actuellement une implémentation Parser, mais d’autres parseurs peuvent être ajoutés sans modifier le code appelant.
 
 ## Utilisation de la déléguation
 

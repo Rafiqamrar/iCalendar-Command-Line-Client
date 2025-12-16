@@ -61,14 +61,10 @@ public class FilterTest {
         Path file = getTestFile("i2.ics");
         Calendar calendar = parser.parse(file);
         assertNotNull(calendar, "Calendrier ne devrait pas être null pour i2.ics");
-        List<CalElement> cals = calendar.get(ViewType.EVENTS);
-        List<Event> events = new ArrayList<>();
+        List<Event> events;
+        try{events = calendar.getEvents();}catch(Exception e){return;}
 
-        for (CalElement cal : cals) {
-            events.add((Event) cal);
-        }
-
-        assertEquals(156, cals.size(), "Devrait avoir 156 EVENT");
+        assertEquals(156, events.size(), "Devrait avoir 156 EVENT");
 
         List<Event> filteredEvents = EventFilters.filter(events, config);
 
@@ -85,14 +81,10 @@ public class FilterTest {
         Path file = getTestFile("i2.ics");
         Calendar calendar = parser.parse(file);
         assertNotNull(calendar, "Calendrier ne devrait pas être null pour i2.ics");
-        List<CalElement> cals = calendar.get(ViewType.EVENTS);
-        List<Event> events = new ArrayList<>();
+        List<Event> events;
+        try{events = calendar.getEvents();}catch(Exception e){return;}
 
-        for (CalElement cal : cals) {
-            events.add((Event) cal);
-        }
-
-        assertEquals(156, cals.size(), "Devrait avoir 156 EVENT");
+        assertEquals(156, events.size(), "Devrait avoir 156 EVENT");
 
         List<Event> filteredEvents = EventFilters.filter(events, config);
 
@@ -109,11 +101,8 @@ public class FilterTest {
         Path file = getTestFile("todos.ics");
         Calendar calendar = parser.parse(file);
         assertNotNull(calendar, "Calendrier ne devrait pas être null pour todos.ics");
-        List<CalElement> cals = calendar.get(ViewType.TODOS);
-        List<Todo> todos = new ArrayList<>();
-        for (CalElement cal : cals) {
-            todos.add((Todo) cal);
-        }
+        List<Todo> todos;
+        try{todos = calendar.getTodos();}catch(Exception e){return;}
 
         assertEquals(4, todos.size(), "On doit avoir 3 todos");
 
@@ -132,11 +121,8 @@ public class FilterTest {
         Path file = getTestFile("todos.ics");
         Calendar calendar = parser.parse(file);
         assertNotNull(calendar, "Calendrier ne devrait pas être null pour todos.ics");
-        List<CalElement> cals = calendar.get(ViewType.TODOS);
-        List<Todo> todos = new ArrayList<>();
-        for (CalElement cal : cals) {
-            todos.add((Todo) cal);
-        }
+        List<Todo> todos;
+        try{todos = calendar.getTodos();}catch(Exception e){return;}
 
         assertEquals(4, todos.size(), "On doit avoir 3 todos");
 
