@@ -32,6 +32,9 @@ public class Main
                   {
                     events.add ((Event)el);
                   }
+                else{
+                  throw new Exception("Output of Calendar.get(EVENTS) gives a non Event CalElement");
+                }
               }
             List<Event> filteredEvents = EventFilters.filter (events, config);
             result.addAll (filteredEvents);
@@ -45,6 +48,9 @@ public class Main
                   {
                     todos.add ((Todo)el);
                   }
+                else{
+                  throw new Exception("Output of Calendar.get(TODOS) gives a non Todo CalElement");
+                }
               }
             List<Todo> filteredTodos = TodoFilters.filter (todos, config);
             result.addAll (filteredTodos);
