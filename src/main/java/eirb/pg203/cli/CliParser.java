@@ -7,9 +7,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Parseur de ligne de commande.
+ * Analyse les arguments passés au programme et construit une configuration (CliConfig).
+ */
 public class CliParser
 {
-
+  // Formatter pour les dates au format ICS (YYYYMMDD)
   private static final DateTimeFormatter DATE_YYYYMMDD
       = DateTimeFormatter.ofPattern ("yyyyMMdd");
 
@@ -54,18 +58,28 @@ public class CliParser
       }
   }
 
+  /**
+   * Méthode principale de parsing de la ligne de commande.
+   * Analyse les arguments et construit un objet CliConfig.
+   *
+   * @param args Arguments de la ligne de commande
+   * @return Configuration CLI complète
+   * @throws CliException En cas d'arguments invalides ou manquants
+   */
   public static CliConfig
   parse (String[] args)
   {
-
+    // Vérification du nombre minimal d'arguments
     if (args.length < 2)
       {
         throw new CliException (
             "Usage: clical <file> <events|todos> [options]");
       }
 
+    // Premier argument: fichier ICS d'entrée
     Path inputFile = Path.of (args[0]);
 
+    // Deuxième argument: type d'éléments à afficher (events ou todos)
     ViewType viewType;
     if (args[1].equals ("events"))
       {
@@ -90,13 +104,13 @@ public class CliParser
     OutputFormat format = OutputFormat.TEXT;
     Path outputFile = null;
 
+    // Parcours des options (à partir du 3ème argument)
     for (int i = 2; i < args.length; i++)
       {
 
         switch (args[i])
           {
-
-          // EVENTS FILTERS
+          // FILTRES POUR ÉVÉNEMENTS
           case "-today":
             eventFilter = EventFilterType.TODAY;
             break;
@@ -120,7 +134,7 @@ public class CliParser
             to = parseDate (args[++i], "-to");
             break;
 
-          // TODOS FILTERS
+          // FILTRES POUR TODOS
           case "-all":
             todoFilter = TodoFilterType.ALL;
             break;
@@ -141,7 +155,7 @@ public class CliParser
             todoFilter = TodoFilterType.INCOMPLETE;
             break;
 
-          // OUTPUT FORMAT
+          // FORMATS DE SORTIE
           case "-text":
             format = OutputFormat.TEXT;
             break;

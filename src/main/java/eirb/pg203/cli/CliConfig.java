@@ -7,21 +7,28 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import java.time.LocalDate;
 
+/**
+ * Conteneur de configuration CLI après parsing.
+ * Stocke tous les paramètres extraits de la ligne de commande.
+ */
 public class CliConfig
 {
 
-  private Path inputFile;
-  private ViewType viewType;
+  private Path inputFile;            // Chemin du fichier ICS
+  private ViewType viewType;         // Type d'éléments (EVENTS/TODOS)
 
-  private EventFilterType eventFilter;
-  private TodoFilterType todoFilter;
+  private EventFilterType eventFilter; // Filtre pour événements
+  private TodoFilterType todoFilter;   // Filtre pour TODOs
 
-  private LocalDate from;
-  private LocalDate to;
+  private LocalDate from;            // Date de début (pour -from)
+  private LocalDate to;              // Date de fin (pour -to)
 
-  private OutputFormat outputFormat;
-  private Path outputFile;
+  private OutputFormat outputFormat; // Format de sortie (TEXT/ICS/HTML)
+  private Path outputFile;           // Fichier de sortie (null = stdout)
 
+  /**
+   * Constructeur principal.
+   */
   public CliConfig (Path inputFile, ViewType viewType,
                     EventFilterType eventFilter, TodoFilterType todoFilter,
                     LocalDate from, LocalDate to, OutputFormat outputFormat,
@@ -38,6 +45,7 @@ public class CliConfig
     this.outputFile = outputFile;
   }
 
+  // GETTERS
   public Path
   getInputFile ()
   {
@@ -80,6 +88,14 @@ public class CliConfig
     return outputFormat;
   }
 
+  /**
+   * Retourne un OutputStream pour écrire la sortie.
+   * Si outputFile est null, retourne System.out.
+   * Sinon, crée un FileOutputStream vers le fichier spécifié.
+   *
+   * @return OutputStream approprié pour l'écriture
+   * @throws RuntimeException Si impossible de créer le flux fichier
+   */
   public OutputStream
   getOutputStream ()
   {

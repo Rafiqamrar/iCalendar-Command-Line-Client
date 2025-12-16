@@ -3,6 +3,10 @@ package eirb.pg203.model;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Représente un événement (VEVENT) d'un fichier ICS.
+ * Hérite de CalElement et contient toutes les propriétés spécifiques aux événements
+ */
 public class Event extends CalElement
 {
   final private String UID;
@@ -16,6 +20,19 @@ public class Event extends CalElement
   final private String DESCRIPTION;
   final private Integer SEQUENCE;
 
+  /**
+   * Constructeur pour créer un événement.
+   * @param uid Identifiant unique
+   * @param summary Titre de l'événement
+   * @param location Lieu de l'événement
+   * @param last_modified Date de dernière modification
+   * @param dtstamp Date de création de l'instance
+   * @param dtstart Date et heure de début
+   * @param dtend Date et heure de fin
+   * @param created Date de création de l'événement
+   * @param description Description de l'événement
+   * @param sequence Numéro de séquence
+   */
   public Event (String uid, String summary, String location,
                 LocalDateTime last_modified, LocalDateTime dtstamp,
                 LocalDateTime dtstart, LocalDateTime dtend,
@@ -23,7 +40,7 @@ public class Event extends CalElement
   {
     if (uid == null || uid.isEmpty ())
       {
-        throw new IllegalArgumentException ("UID was not provided");
+        throw new IllegalArgumentException ("UID ne peut pas être null");
       }
     if (dtstart == null)
       {
@@ -41,6 +58,9 @@ public class Event extends CalElement
     this.SEQUENCE = sequence;
   }
 
+  /**
+   * Retourne le type de vue associé (EVENTS).
+   */
   @Override
   public ViewType
   viewType ()
@@ -48,6 +68,7 @@ public class Event extends CalElement
     return ViewType.EVENTS;
   }
 
+  // Getters
   public String
   getUid ()
   {
@@ -108,6 +129,9 @@ public class Event extends CalElement
     return this.SEQUENCE;
   }
 
+  /**
+   * Représentation de l'événement pour l'affichage console.
+   */
   @Override
   public String
   toString ()

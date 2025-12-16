@@ -4,6 +4,10 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Map;
 
+/**
+ * Représente une tâche (VTODO) d'un fichier ICS.
+ * Hérite de CalElement et contient les propriétés spécifiques aux TODOs
+ */
 public class Todo extends CalElement
 {
   final private String UID;
@@ -22,6 +26,24 @@ public class Todo extends CalElement
   final private String ORGANIZER_name;
   final private String ORGANIZER_mail;
 
+  /**
+   * Constructeur pour créer une tâche (TODO).
+   * @param uid Identifiant unique
+   * @param summary Titre de la tâche
+   * @param location Lieu associé
+   * @param status Statut ("COMPLETED", "INPROCESS", "NEEDS-ACTION")
+   * @param percent_complete Pourcentage d'avancement (0-100)
+   * @param completed Date de complétion
+   * @param due Date limite
+   * @param dtstart Date de début
+   * @param todo_class Classification
+   * @param priority Niveau de priorité
+   * @param last_modified Date de dernière modification
+   * @param dtstamp Date de création de l'instance
+   * @param sequence Numéro de séquence
+   * @param organizer_name Nom de l'organisateur
+   * @param organizer_mail Email de l'organisateur
+   */
   public Todo (String uid, String summary, String location, String status,
                Integer percent_complete, LocalDateTime completed,
                LocalDate due, LocalDate dtstart, String todo_class,
@@ -31,7 +53,7 @@ public class Todo extends CalElement
   {
     if (uid == null || uid.isEmpty ())
       {
-        throw new IllegalArgumentException ("UID was not provided");
+        throw new IllegalArgumentException ("UID ne peut pas être null");
       }
     this.UID = uid;
     this.SUMMARY = summary;
@@ -50,12 +72,16 @@ public class Todo extends CalElement
     this.ORGANIZER_mail = organizer_mail;
   }
 
+  /**
+   * Retourne le type de vue associé (TODOS).
+   */
   public ViewType
   viewType ()
   {
     return ViewType.TODOS;
   }
 
+  // Getters
   public String
   getUid ()
   {
@@ -143,6 +169,9 @@ public class Todo extends CalElement
     return this.ORGANIZER_mail;
   }
 
+  /**
+   * Représentation de la tâche pour l'affichage console.
+   */
   @Override
   public String
   toString ()

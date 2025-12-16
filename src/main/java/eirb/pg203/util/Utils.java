@@ -10,22 +10,42 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe contenant des méthodes statiques pour des opérations courantes :
+ * - Conversion de chaînes en dates/nombres
+ * - Lecture de fichiers
+ * - Formatage de données ICS
+ */
 public class Utils
 {
 
+  /**
+   * Convertit une chaîne au format "yyyyMMdd" en objet LocalDate.
+   * Ex: "20231225" -> LocalDate du 25 décembre 2023.
+   * 
+   * @param date Chaîne de 8 chiffres représentant une date
+   * @return LocalDate correspondante, ou null si le format est invalide
+   */
   public static LocalDate
   dateGetter (String date)
   {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern ("yyyy/MM/dd");
 
     String[] elts = new String[3];
-    elts[0] = date.substring (0, 4); // year
-    elts[1] = date.substring (4, 6); // month
-    elts[2] = date.substring (6, 8); // day
+    elts[0] = date.substring (0, 4); // année
+    elts[1] = date.substring (4, 6); // mois
+    elts[2] = date.substring (6, 8); // jour
     String result = String.join ("/", elts);
     return LocalDate.parse (result, formatter);
   }
 
+  /**
+   * Convertit une chaîne en Integer.
+   * Retourne null si la chaîne est nulle, vide, ou non numérique.
+   * 
+   * @param s Chaîne à convertir
+   * @return Integer correspondant, ou null si conversion impossible
+   */
   public static Integer
   StoNum (String s)
   {
@@ -44,11 +64,19 @@ public class Utils
       }
   }
 
+  // Formatters pour les dates ICS
   private static final DateTimeFormatter DATE
       = DateTimeFormatter.ofPattern ("yyyyMMdd");
   private static final DateTimeFormatter DATETIME
       = DateTimeFormatter.ofPattern ("yyyyMMdd'T'HHmmss");
 
+  /**
+   * Parse une chaîne ICS représentant une date (format yyyyMMdd).
+   * Utilisé pour des champs comme DUE;VALUE=DATE ou DTSTART;VALUE=DATE.
+   * 
+   * @param raw Chaîne du fichier ICS
+   * @return LocalDate correspondante, ou null si invalide
+   */
   public static LocalDate
   dateFormatter (String raw)
   {
@@ -72,6 +100,13 @@ public class Utils
       }
   }
 
+  /**
+   * Parse une chaîne ICS représentant une date-heure (format yyyyMMdd'T'HHmmss).
+   * Utilisé pour des champs comme DTSTART, DTEND, CREATED, etc.
+   * 
+   * @param raw Chaîne du fichier ICS
+   * @return LocalDateTime correspondante, ou null si invalide
+   */
   public static LocalDateTime
   dateTimeFormatter (String raw)
   {
@@ -98,7 +133,12 @@ public class Utils
       }
   }
 
-  // takes a path and returns a List<String> of its lines
+  /**
+   * Lit toutes les lignes d'un fichier et les retourne sous forme de liste.
+   * 
+   * @param path Chemin vers le fichier à lire
+   * @return Liste des lignes du fichier, ou liste vide en cas d'erreur
+   */
   public static List<String>
   loadLines (Path path)
   {

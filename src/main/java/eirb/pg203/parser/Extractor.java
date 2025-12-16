@@ -1,3 +1,4 @@
+// File: Extractor.java
 package eirb.pg203.parser;
 
 import java.nio.file.Path;
@@ -8,12 +9,20 @@ import java.util.Map;
 
 import eirb.pg203.util.Utils;
 
+/**
+ * Classe pour extraire et parser les blocs d'un fichier ICS.
+ * Divise le fichier en "chunks" (blocs) correspondant aux sections BEGIN/END,
+ * puis parse chaque chunk en une Map clé/valeur.
+ */
 class Extractor {
-  // this will add only 'BEGIN:*' to all chunks, cuz 'END:*' doesnt matter
-  // !! first 'chunk' is for info about the calendar starting with
-  // 'BEGIN:VCALENDR'
-  List<String>
-  fileToChunks (Path path)
+  /**
+   * Lit un fichier ICS et le divise en blocs délimités par BEGIN: et END:.
+   * Le premier bloc est le header du calendrier (BEGIN:VCALENDAR).
+   *
+   * @param path Chemin vers le fichier ICS
+   * @return Liste des blocs sous forme de chaînes de caractères
+   */
+  List<String> fileToChunks (Path path)
   {
     List<String> l = Utils.loadLines (path);
     List<String> chunks = new ArrayList<> ();
@@ -22,13 +31,13 @@ class Extractor {
       {
         if (line.startsWith ("BEGIN:") && !temp.isEmpty ())
           {
-            chunks.add (temp); // for header
+            chunks.add (temp);
             temp = "";
           }
         if (line.startsWith ("END:"))
           {
             if (!temp.isEmpty ())
-              { // add close element
+              {
                 chunks.add (temp);
                 temp = "";
               }
@@ -40,8 +49,15 @@ class Extractor {
     return chunks;
   }
 
-  Map<String, String>
-  parseChunk (String chunk)
+  /**
+   * Parse un bloc ICS en une Map où chaque clé est un nom de propriété
+   * et chaque valeur est la chaîne correspondante.
+   * Gère les lignes continuées en les concaténant.
+   *
+   * @param chunk Bloc ICS sous forme de chaîne
+   * @return Map des propriétés extraites
+   */
+  Map<String, String> parseChunk (String chunk)
   {
     Map<String, String> map = new HashMap<> ();
     String[] lines = chunk.split ("\n");
@@ -89,8 +105,10 @@ class Extractor {
     return map;
   }
 
-  private boolean
-  isKey (String s)
+  /**
+   * Détermine si une chaîne est une clé ICS valide (contient lettres, chiffres, ;, =, -, ")
+   */
+  private boolean isKey (String s)
   {
     return s != null && s.matches ("[A-Za-z;\"=-]+");
   }
