@@ -15,7 +15,7 @@ public class HtmlWriter implements OutputWriter
 
   @Override
   public void
-  write (List<? extends CalElement> elements, OutputStream out)
+  write (List<CalElement> elements, OutputStream out)
   {
     PrintWriter pw = new PrintWriter (out);
 
