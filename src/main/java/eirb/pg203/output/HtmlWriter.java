@@ -7,6 +7,9 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * Writer pour générer une sortie HTML à partir des éléments de calendrier.
+ */
 public class HtmlWriter implements OutputWriter
 {
 
@@ -41,6 +44,9 @@ public class HtmlWriter implements OutputWriter
     pw.flush ();
   }
 
+  /**
+   * Génère la représentation HTML d'un événement.
+   */
   private void
   writeEvent (Event e, PrintWriter pw)
   {
@@ -56,6 +62,9 @@ public class HtmlWriter implements OutputWriter
     pw.println ("</section>");
   }
 
+  /**
+   * Génère la représentation HTML d'une tâche (TODO).
+   */
   private void
   writeTodo (Todo t, PrintWriter pw)
   {
@@ -70,6 +79,9 @@ public class HtmlWriter implements OutputWriter
     pw.println ("</section>");
   }
 
+  /**
+   * Méthode pour générer un élément de liste HTML.
+   */
   private void
   li (PrintWriter pw, String key, Object value)
   {

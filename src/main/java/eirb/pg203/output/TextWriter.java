@@ -7,6 +7,10 @@ import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.List;
 
+/**
+ * Writer pour la sortie texte (console).
+ * Utilise simplement la méthode toString() de chaque élément pour l'affichage.
+ */
 public class TextWriter implements OutputWriter
 {
 
@@ -17,6 +21,7 @@ public class TextWriter implements OutputWriter
     PrintWriter pw = new PrintWriter (out);
     for (CalElement el : elements)
       {
+        // Délègue le formatage à la méthode toString() de chaque élément
         pw.println (el.toString ());
       }
     pw.flush ();

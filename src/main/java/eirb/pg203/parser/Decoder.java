@@ -12,10 +12,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Convertit les Maps de propriétés ICS en objets métier (Event, Todo, Calendar).
+ */
 class Decoder
 {
   // "ORGANIZER;CN=X" : "Y" -> X
-  // Returns null if no CN is present.
+  // Retourne null si aucun CN n'est présent.
   private String
   getOname (Map<String, String> map)
   {
@@ -30,8 +33,8 @@ class Decoder
             int semi = key.indexOf (";CN=");
             if (semi >= 0)
               {
-                // value after ";CN=" : "[name]" 
-                String cn = key.substring (semi + 5,key.length()-1);  // to remove the ""
+                // valeur après ";CN=" : "[name]" 
+                String cn = key.substring (semi + 5,key.length()-1);  // pour éliminer ""
                 return cn.isEmpty () ? null : cn;
               }
             return null;
@@ -40,17 +43,18 @@ class Decoder
     return null;
   }
 
-  // "ORGANIZER;CN=X" : "Y" -> Y
-  // Returns null if no CN is present.
+  /**
+   * Extrait l'email de l'organisateur depuis la valeur de la clé ORGANIZER.
+   */
   private String
   getOmail (Map<String, String> map)
   {
     if (map == null)
       return null;
-    String value = map.get ("ORGANIZER"); // in case theres no CN parameter
+    String value = map.get ("ORGANIZER"); // au cas où il n'y a pas de paramètre CN
     if (value == null)
       {
-        // Find the first key that starts with ORGANIZER
+        // Trouve la première clé qui commence par ORGANIZER
         for (java.util.Map.Entry<String, String> e : map.entrySet ())
           {
             if (e.getKey () != null && e.getKey ().startsWith ("ORGANIZER"))
@@ -68,6 +72,9 @@ class Decoder
     return value;
   }
 
+  /**
+   * Crée un objet Todo à partir d'une Map de propriétés.
+   */
   private Todo
   makeTodo (Map<String, String> map)
   {
@@ -92,6 +99,9 @@ class Decoder
                      DTSTAMP, SEQUENCE, ORGANIZER_name, ORGANIZER_mail);
   }
 
+  /**
+   * Crée un objet Event à partir d'une Map de propriétés.
+   */
   private Event
   makeEvent (Map<String, String> map)
   {
@@ -110,6 +120,10 @@ class Decoder
                       DTEND, CREATED, DESCRIPTION, SEQUENCE);
   }
 
+  /**
+   * Décide quel type d'élément créer (Event ou Todo) en fonction de la valeur de BEGIN.
+   * Lance une IllegalArgumentException si le type n'est pas reconnu.
+   */
   CalElement
   calElement (Map<String, String> map)
   {
@@ -126,6 +140,11 @@ class Decoder
       }
   }
 
+  /**
+   * Construit un objet Calendar à partir d'une liste de Maps.
+   * Le premier Map est considéré comme le header du calendrier.
+   * Les Maps suivants sont convertis en Event ou Todo.
+   */
   Calendar
   calendar (List<Map<String, String> > maps)
   {
@@ -136,7 +155,6 @@ class Decoder
       }
     Map<String, String> header = maps.get (0);
 
-    // List<CalElement> els =maps.subList(1, maps.size())
     List<CalElement> els = maps.subList (1, maps.size ())
                                .stream ()
                                .map (this::calElement)

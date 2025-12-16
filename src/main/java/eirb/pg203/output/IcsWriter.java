@@ -10,6 +10,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+/**
+ * Writer pour générer une sortie au format .
+ */
 public class IcsWriter implements OutputWriter
 {
 
@@ -47,6 +50,9 @@ public class IcsWriter implements OutputWriter
     pw.flush ();
   }
 
+  /**
+   * Écrit un événement au format VEVENT ICS.
+   */
   private void
   writeEvent (Event e, PrintWriter pw)
   {
@@ -68,6 +74,9 @@ public class IcsWriter implements OutputWriter
     pw.println ("END:VEVENT");
   }
 
+  /**
+   * Écrit une tâche au format VTODO ICS.
+   */
   private void
   writeTodo (Todo t, PrintWriter pw)
   {

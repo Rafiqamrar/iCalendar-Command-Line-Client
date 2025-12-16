@@ -5,11 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Représente un calendrier contenant une liste d'éléments (Event/Todo).
+ */
 public class Calendar
 {
   private final Map<String, String> fields;
   private final List<CalElement> list;
 
+  /**
+   * Constructeur.
+   * @param f Données du calendrier sous forme de Map (clé/valeur)
+   * @param els Liste des éléments du calendrier
+   */
   public Calendar (Map<String, String> f, List<CalElement> els)
   {
     this.fields = (f == null) ? new HashMap<> () : new HashMap<> (f);
