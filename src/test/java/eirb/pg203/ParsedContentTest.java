@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-class ParserContentTest
+class ParsedContentTest
 {
   private final Parser parser = new Parser ();
 
@@ -27,34 +27,23 @@ class ParserContentTest
 
   @Test
   void
-  testParse_SimpleTodo_Content ()
+  ParsedContentTest_SimpleTodo_Content ()
   {
     Path file = getTestFile ("simple_todo.ics");
     Calendar calendar = parser.parse (file);
 
-    assertNotNull (calendar, "Le calendrier ne devrait pas être null");
-
-    List<CalElement> todos = calendar.get (ViewType.TODOS);
-    assertEquals (1, todos.size (), "Devrait avoir 1 TODO " + file);
-
-    Todo todo = (Todo)todos.get (0);
+    Todo todo = (Todo)(calendar.get(ViewType.TODOS).get(0)); // vérifié dans ParserTest
     assertEquals ("simple-todo-123", todo.getUid (), "UID incorrect");
     assertEquals ("Test Todo Simple", todo.getSummary (), "Summary incorrect");
   }
 
   @Test
   void
-  testParse_SimpleEvent_Content ()
+  ParsedContentTest_SimpleEvent_Content ()
   {
     Path file = getTestFile ("simple_event.ics");
     Calendar calendar = parser.parse (file);
-
-    assertNotNull (calendar, "Le calendrier ne devrait pas être null");
-
-    List<CalElement> events = calendar.get (ViewType.EVENTS);
-    assertEquals (1, events.size (), "Devrait avoir 1 EVENT");
-
-    Event event = (Event)events.get (0);
+    Event event = (Event)calendar.get(ViewType.EVENTS).get(0); //vérifié dans ParserTest
     assertEquals ("simple-event-456", event.getUid (), "UID incorrect");
     assertEquals ("Test Event Simple", event.getSummary (),
                   "Summary incorrect");
@@ -67,17 +56,11 @@ class ParserContentTest
 
   @Test
   void
-  testParse_RealTodo_Content ()
+  ParsedContentTest_RealTodo_Content ()
   {
     Path file = getTestFile ("real_todo.ics");
     Calendar calendar = parser.parse (file);
-
-    assertNotNull (calendar, "Le calendrier ne devrait pas être null");
-
-    List<CalElement> todos = calendar.get (ViewType.TODOS);
-    assertEquals (1, todos.size (), "Devrait avoir 1 TODO");
-
-    Todo todo = (Todo)todos.get (0);
+    Todo todo = (Todo)calendar.get(ViewType.TODOS).get (0);
 
     assertEquals ("457d2974-389e-44f4-b201-efdd66183608", todo.getUid (),
                   "UID incorrect");
@@ -105,17 +88,11 @@ class ParserContentTest
 
   @Test
   void
-  testParse_RealEvent_Content ()
+  ParsedContentTest_RealEvent_Content ()
   {
     Path file = getTestFile ("real_event.ics");
     Calendar calendar = parser.parse (file);
-
-    assertNotNull (calendar, "Le calendrier ne devrait pas être null");
-
-    List<CalElement> events = calendar.get (ViewType.EVENTS);
-    assertEquals (1, events.size (), "Devrait avoir 1 EVENT");
-
-    Event event = (Event)events.get (0);
+    Event event = (Event)calendar.get(ViewType.EVENTS).get (0);
 
     assertEquals ("Présentation PFA", event.getSummary (),
                   "Summary incorrect");
@@ -147,7 +124,7 @@ class ParserContentTest
 
   @Test
   void
-  testParse_MultipleItems_Content ()
+  ParsedContentTest_MultipleItems_Content ()
   {
     Path file = getTestFile ("multiple_items.ics");
     Calendar calendar = parser.parse (file);
@@ -189,7 +166,7 @@ class ParserContentTest
 
   @Test
   void
-  testParse_TodoWithSemicolonInKey ()
+  ParsedContentTest_TodoWithSemicolonInKey ()
   {
     Path file = getTestFile ("real_todo.ics");
     Calendar calendar = parser.parse (file);
@@ -203,6 +180,8 @@ class ParserContentTest
 
     String organizer = todo.getOrganizerMail ();
     assertEquals ("mailto:foo@bar.fr", organizer, "Organizer incorrect");
+    String cn = todo.getOrganizerName();
+    assertEquals ("Alice", cn, "Organizer incorrect");
 
     LocalDate due = todo.getDue ();
     assertEquals (Utils.dateFormatter ("20251107"), due, "Due date incorrect");
@@ -210,7 +189,7 @@ class ParserContentTest
 
   @Test
   void
-  testParse_EventMultilineDescription ()
+  ParsedContentTest_EventMultilineDescription ()
   {
     Path file = getTestFile ("real_event.ics");
     Calendar calendar = parser.parse (file);
@@ -236,7 +215,7 @@ class ParserContentTest
 
   @Test
   void
-  testParse_EmptyCalendar ()
+  ParsedContentTest_EmptyCalendar ()
   {
     Path file = getTestFile ("empty.ics");
     Calendar calendar = parser.parse (file);
@@ -252,7 +231,7 @@ class ParserContentTest
 
   @Test
   void
-  testParse_CalendarInfoInFirstElement ()
+  ParsedContentTest_CalendarInfoInFirstElement ()
   {
     Path file = getTestFile ("real_todo.ics");
     Calendar calendar = parser.parse (file);

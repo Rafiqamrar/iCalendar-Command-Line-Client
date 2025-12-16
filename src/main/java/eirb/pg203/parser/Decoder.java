@@ -30,8 +30,8 @@ class Decoder
             int semi = key.indexOf (";CN=");
             if (semi >= 0)
               {
-                // value after ";CN="
-                String cn = key.substring (semi + 4);
+                // value after ";CN=" : "[name]" 
+                String cn = key.substring (semi + 5,key.length()-1);  // to remove the ""
                 return cn.isEmpty () ? null : cn;
               }
             return null;
