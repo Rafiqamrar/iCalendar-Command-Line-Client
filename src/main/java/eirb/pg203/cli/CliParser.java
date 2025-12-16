@@ -1,11 +1,12 @@
 package eirb.pg203.cli;
 
-import eirb.pg203.model.ViewType;
-import eirb.pg203.output.OutputFormat;
 import java.nio.file.Path;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import eirb.pg203.model.ViewType;
+import eirb.pg203.output.OutputFormat;
 
 /**
  * Parseur de ligne de commande.
@@ -104,6 +105,7 @@ public class CliParser
     OutputFormat format = OutputFormat.TEXT;
     Path outputFile = null;
 
+    int a=0;
     // Parcours des options (à partir du 3ème argument)
     for (int i = 2; i < args.length; i++)
       {
@@ -124,13 +126,17 @@ public class CliParser
             break;
 
           case "-from":
-            validateNextArgument (args, i, "-from");
+            a++;
             from = parseDate (args[++i], "-from");
+            to = parseDate("20300101", "-to");
             eventFilter = EventFilterType.RANGE;
             break;
 
           case "-to":
-            validateNextArgument (args, i, "-to");
+            if (a==0){
+              from = parseDate("20100101", "-from");
+            }
+            a+=2;
             to = parseDate (args[++i], "-to");
             break;
 
@@ -184,13 +190,7 @@ public class CliParser
         throw new CliException (
             "Les options -from/-to sont interdites pour les TODOS");
       }
-
-    if (eventFilter == EventFilterType.RANGE && (from == null || to == null))
-      {
-        throw new CliException (
-            "Les options -from et -to doivent être utilisées ensemble");
-      }
-
+      
     if (from != null && to != null && from.isAfter (to))
       {
         throw new CliException ("La date -from (" + from

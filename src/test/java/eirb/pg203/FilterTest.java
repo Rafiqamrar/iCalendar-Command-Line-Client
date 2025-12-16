@@ -27,7 +27,7 @@ public class FilterTest {
     }
 
     @Test
-    void testFromTO_SimpleEventFile() {
+    void testFromTo_SimpleEventFile() {
         List<String> args = List.of(
                 "i2.ics", "events", 
                 "-from", "20260101",
@@ -36,7 +36,7 @@ public class FilterTest {
         assertEquals(config.getEventFilter(), EventFilterType.RANGE, "Il faut Spécifier les dates pour les options");
         Path file = getTestFile("i2.ics");
         Calendar calendar = parser.parse(file);
-        assertNotNull(calendar, "Calendrier ne devrait pas être null pour simple_todo.ics");
+        assertNotNull(calendar, "Calendrier ne devrait pas être null pour i2.ics");
         List<CalElement> cals = calendar.get(ViewType.EVENTS);
         List<Event> events = new ArrayList<>();
 
