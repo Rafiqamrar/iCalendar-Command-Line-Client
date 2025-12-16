@@ -1,19 +1,21 @@
 package eirb.pg203.parser;
 import eirb.pg203.model.Calendar;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Parser implements IcsParser {
-  Extractor e = new Extractor();
-  Decoder d = new Decoder();
   public Calendar parse(Path path) {
+    Extractor e = new Extractor();
+    Decoder d = new Decoder();
+
     List<String> chunks = e.fileToChunks(path);
-    List<Map<String, String>> maps = new ArrayList<>();
-    for (String chunk : chunks) {
-      maps.add(e.parseChunk(chunk));
-    }
+
+    List<Map<String, String>> maps = chunks
+        .stream()
+        .map(e::parseChunk)
+        .collect(Collectors.toList());
     return d.calendar(maps);
   }
 }
