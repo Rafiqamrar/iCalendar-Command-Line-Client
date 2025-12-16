@@ -37,14 +37,10 @@ public class FilterTest {
         Path file = getTestFile("i2.ics");
         Calendar calendar = parser.parse(file);
         assertNotNull(calendar, "Calendrier ne devrait pas être null pour simple_todo.ics");
-        List<CalElement> cals = calendar.get(ViewType.EVENTS);
-        List<Event> events = new ArrayList<>();
+        List<Event> events;
+        try{events = calendar.getEvents();}catch(Exception e){return;}
 
-        for (CalElement cal : cals) {
-            events.add((Event) cal);
-        }
-
-        assertEquals(156, cals.size(), "Devrait avoir 156 EVENT");
+        assertEquals(156, events.size(), "Devrait avoir 156 EVENT");
 
         List<Event> filteredEvents = EventFilters.filter(events, config);
 

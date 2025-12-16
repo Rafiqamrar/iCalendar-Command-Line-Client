@@ -25,34 +25,12 @@ public class Main
 
         if (config.getViewType () == ViewType.EVENTS)
           {
-            List<Event> events = new ArrayList<> ();
-            for (CalElement el : cal.get (ViewType.EVENTS))
-              {
-                if (el instanceof Event)
-                  {
-                    events.add ((Event)el);
-                  }
-                else{
-                  throw new Exception("Output of Calendar.get(EVENTS) gives a non Event CalElement");
-                }
-              }
-            List<Event> filteredEvents = EventFilters.filter (events, config);
+            List<Event> filteredEvents = EventFilters.filter (cal.getEvents(), config);
             result.addAll (filteredEvents);
           }
         else
           {
-            List<Todo> todos = new ArrayList<> ();
-            for (CalElement el : cal.get (ViewType.TODOS))
-              {
-                if (el instanceof Todo)
-                  {
-                    todos.add ((Todo)el);
-                  }
-                else{
-                  throw new Exception("Output of Calendar.get(TODOS) gives a non Todo CalElement");
-                }
-              }
-            List<Todo> filteredTodos = TodoFilters.filter (todos, config);
+            List<Todo> filteredTodos = TodoFilters.filter (cal.getTodos(), config);
             result.addAll (filteredTodos);
           }
 
