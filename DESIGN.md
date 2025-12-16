@@ -9,6 +9,15 @@ Nous vous conseillons d'utiliser le logiciel PlantUML pour générer vos diagram
 
 Décrivez ici le schéma général de votre programme. Quels sont les composants principaux et comment interagissent-ils?
 
+Notre programme suit une architecture modulaire composée de plusieurs couches :
+
+CLI (Command Line Interface) : analyse les arguments et construit la configuration (CliConfig).
+Parser : lit le fichier ICS et construit un modèle Calendar contenant des éléments (Event, Todo).
+Filter : appliquent des règles de filtrage sur les événements ou les tâches selon la configuration.
+Output : choisit dynamiquement un writer (HtmlWriter, IcsWriter, TextWriter) via une factory pour générer la sortie dans le format demandé.
+
+Flux général :
+Main -> CliParser -> Parser -> Calendar -> Filters -> OutputWriterFactory -> OutputWriter.
 
 ## Utilisation du polymorphisme
 
@@ -24,30 +33,28 @@ l’interface ICSParser définit le contrat de parsing, et nous avons actuelleme
 
 Comment utilisez-vous la délégation dans votre programme?
 
-Main délègue la lecture des arguments à CliParser et la gestion d’erreurs spécifiques à CliException.
-Main délègue la construction du modèle à Parser.
-Main délègue le filtrage à EventFilters/TodoFilters, qui encapsulent les règles basées sur CliConfig.
-Main délègue la décision du writer au OutputWriterFactory.
-
-Le Writer délègue le format de sortie à ses implémentations.
-
-le Parser délègue l'extraction des 'chunks' à la classe Extractor et la décodation de ces chunks à la classe Decoder.
-
-la sortie dans TextWriter délègue l'affichage du sortie terminal des calElements aux classes Event Todo avec la fonction overwrited : toString 
+Notre programme utilise largement la délégation pour séparer les responsabilités : la classe `Main` délègue respectivement l'analyse des arguments à `CliParser`, la construction du modèle à `Parser`, le filtrage aux classes `EventFilters`/`TodoFilters`, et le choix du format de sortie à `OutputWriterFactory`. De même, le `Parser` délègue l'extraction des données à `Extractor` et leur décodage à `Decoder`, tandis que les writers délèguent le formatage concret à leurs implémentations et que `TextWriter` délègue l'affichage des éléments aux classes `Event` et `Todo` via leur méthode `toString()`. Cette approche modulaire favorise la maintenabilité et la testabilité du code.
 
 ## Utilisation de l'héritage
 
 Comment utilisez-vous l'héritage dans votre programme?
 
+Nous utilisons l’héritage pour structurer le modèle comme suit :
+La classe abstraite CalElement représente un élément générique du calendrier.
+Les classes concrètes Event et Todo héritent de CalElement et implémentent la méthode viewType() pour indiquer leur type.
+Cette hiérarchie permet de traiter uniformément les éléments tout en conservant leurs spécificités.
 
 
 ## Utilisation de la généricité
 
 Comment utilisez-vous la généricité dans votre programme?
 
-Nous utilisons la généricité principalement dans l'interface `OutputWriter` avec sa méthode `write(List<? extends CalElement> elements, OutputStream out)`. Le wildcard `? extends CalElement` permet d'accepter une liste contenant n'importe quel sous-type de `CalElement` (comme `Event` ou `Todo`), offrant ainsi une grande flexibilité pour traiter différents types d'éléments de calendrier avec une seule interface. Cette approche générique permet à nos trois implémentations (`IcsWriter`, `HtmlWriter`, `TextWriter`) de gérer uniformément tous les types d'éléments tout en préservant la sécurité du typage.
+Nous utilisons la généricité pour rendre certaines méthodes flexibles tout en gardant la sécurité de type. Par exemple, la méthode :
 
+void write (List<? extends CalElement> elements, OutputStream out);
 
+accepte une liste d’Event, de Todo ou de CalElement grâce au wildcard ? extends CalElement. Cela évite les casts et permet de traiter différents sous-types avec une seule méthode. 
+Cependant, nous n’avons pas trouvé beaucoup d’occasions d’utiliser la généricité dans ce projet, car la plupart des besoins étaient couverts par des types spécifiques (Event, Todo) et des interfaces.
 
 ## Utilisation des exceptions
 
