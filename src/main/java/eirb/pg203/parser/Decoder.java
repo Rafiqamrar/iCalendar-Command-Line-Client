@@ -12,11 +12,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Decoder
+class Decoder
 {
   // "ORGANIZER;CN=X" : "Y" -> X
   // Returns null if no CN is present.
-  public static String
+  private String
   getOname (Map<String, String> map)
   {
     if (map == null)
@@ -42,7 +42,7 @@ public class Decoder
 
   // "ORGANIZER;CN=X" : "Y" -> Y
   // Returns null if no CN is present.
-  public static String
+  private String
   getOmail (Map<String, String> map)
   {
     if (map == null)
@@ -68,7 +68,7 @@ public class Decoder
     return value;
   }
 
-  public static Todo
+  private Todo
   makeTodo (Map<String, String> map)
   {
     String UID = map.get ("UID");
@@ -85,14 +85,14 @@ public class Decoder
         = Utils.dateTimeFormatter (map.get ("LAST-MODIFIED"));
     LocalDateTime DTSTAMP = Utils.dateTimeFormatter (map.get ("DTSTAMP"));
     Integer SEQUENCE = Utils.StoNum (map.get ("SEQUENCE"));
-    String ORGANIZER_name = Decoder.getOname (map);
-    String ORGANIZER_mail = Decoder.getOmail (map);
+    String ORGANIZER_name = getOname (map);
+    String ORGANIZER_mail = getOmail (map);
     return new Todo (UID, SUMMARY, LOCATION, STATUS, PERCENT_COMPLETE,
                      COMPLETED, DUE, DTSTART, CLASS, PRIORITY, LAST_MODIFIED,
                      DTSTAMP, SEQUENCE, ORGANIZER_name, ORGANIZER_mail);
   }
 
-  public static Event
+  private Event
   makeEvent (Map<String, String> map)
   {
     String UID = map.get ("UID");
@@ -110,7 +110,7 @@ public class Decoder
                       DTEND, CREATED, DESCRIPTION, SEQUENCE);
   }
 
-  public static CalElement
+  CalElement
   calElement (Map<String, String> map)
   {
     String type = map.get ("BEGIN");
@@ -118,7 +118,7 @@ public class Decoder
     switch (type)
       {
       case "VEVENT":
-        return makeEvent (map);
+        return makeEvent(map);
       case "VTODO":
         return makeTodo (map);
       default:
@@ -126,7 +126,7 @@ public class Decoder
       }
   }
 
-  public static Calendar
+  Calendar
   calendar (List<Map<String, String> > maps)
   {
 
@@ -139,7 +139,7 @@ public class Decoder
     // List<CalElement> els =maps.subList(1, maps.size())
     List<CalElement> els = maps.subList (1, maps.size ())
                                .stream ()
-                               .map (Decoder::calElement)
+                               .map (this::calElement)
                                .toList ();
 
     return new Calendar (header, els);
