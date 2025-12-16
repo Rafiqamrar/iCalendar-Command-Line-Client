@@ -14,9 +14,23 @@ Décrivez ici le schéma général de votre programme. Quels sont les composants
 
 Comment utilisez-vous le polymorphisme dans votre programme?
 
+OutputWriter (interface) avec plusieurs implémentations (HtmlWriter, IcsWriter, TextWriter). Le Main manipule un OutputWriter abstrait et n’a pas besoin de connaître le type concret. C’est le factory qui décide.
+CalElement est une classe mère abstraite dont héritent Event et Todo. Même si le Main fait encore des instanceof, l’intention est là : une même collection peut contenir des formes différentes (événements ou todos).
+
 ## Utilisation de la déléguation
 
 Comment utilisez-vous la délégation dans votre programme?
+
+Main délègue la lecture des arguments à CliParser et la gestion d’erreurs spécifiques à CliException.
+Main délègue la construction du modèle à Parser.
+Main délègue le filtrage à EventFilters/TodoFilters, qui encapsulent les règles basées sur CliConfig.
+Main délègue la décision du writer au OutputWriterFactory.
+
+Le Writer délègue le format de sortie à ses implémentations.
+
+le Parser délègue l'extraction des 'chunks' à la classe Extractor et la décodation de ces chunks à la classe Decoder.
+
+la sortie dans TextWriter délègue l'affichage du sortie terminal des calElements aux classes Event Todo avec la fonction overwrited : toString 
 
 ## Utilisation de l'héritage
 

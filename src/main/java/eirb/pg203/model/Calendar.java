@@ -23,21 +23,38 @@ public class Calendar
     this.fields = (f == null) ? new HashMap<> () : new HashMap<> (f);
     this.list = (els == null) ? new ArrayList<> () : new ArrayList<> (els);
   }
-
-  /**
-   * Retourne une liste filtrée des éléments selon le type demandé.
-   * @param type Type d'éléments à récupérer (EVENTS, TODOS, ou ALL pour tous)
-   * @return Liste des éléments correspondants
-   */
   public List<CalElement>
-  get (ViewType type)
+  getAll(){
+    return list;
+  }
+  public List<Event>
+  getEvents() throws Exception
   {
-    List<CalElement> res = new ArrayList<> ();
+    List<Event> res = new ArrayList<> ();
     for (CalElement el : list)
       {
-        if (type == ViewType.ALL || el.viewType () == type)
+        if (el.viewType () == ViewType.EVENTS)
           {
-            res.add (el);
+            if( ! (el instanceof Event)) {
+              throw new Exception("CalElment with type : EVENT is not instance of Event");
+            }
+            res.add((Event)el);
+          }
+      }
+    return res;
+  }
+  public List<Todo>
+  getTodos() throws Exception
+  {
+    List<Todo> res = new ArrayList<> ();
+    for (CalElement el : list)
+      {
+        if (el.viewType () == ViewType.TODOS)
+          {
+            if( ! (el instanceof Todo)) {
+              throw new Exception("CalElment with type : TODO is not instance of Todo");
+            }
+            res.add((Todo)el);
           }
       }
     return res;
