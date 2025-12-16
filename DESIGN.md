@@ -28,3 +28,5 @@ Comment utilisez-vous la généricité dans votre programme?
 ## Utilisation des exceptions
 
 Comment utilisez-vous les exceptions dans votre programme?
+
+Dans notre programme, nous utilisons principalement des exceptions pour gérer les erreurs de saisie utilisateur dans l'interface en ligne de commande. La `CliException` personnalisée est lancée lorsque l'utilisateur fournit des arguments invalides, comme des options manquantes, des formats de date incorrects ou des combinaisons d'options incompatibles. Ces exceptions sont attrapées au niveau le plus haut du programme pour afficher des messages d'erreur clairs et guider l'utilisateur vers une utilisation correcte de l'application.
