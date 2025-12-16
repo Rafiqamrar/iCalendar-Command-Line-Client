@@ -9,6 +9,7 @@ Nous vous conseillons d'utiliser le logiciel PlantUML pour générer vos diagram
 
 Décrivez ici le schéma général de votre programme. Quels sont les composants principaux et comment interagissent-ils?
 
+
 ## Utilisation du polymorphisme
 
 Comment utilisez-vous le polymorphisme dans votre programme?
@@ -34,6 +35,8 @@ la sortie dans TextWriter délègue l'affichage du sortie terminal des calElemen
 ## Utilisation de l'héritage
 
 Comment utilisez-vous l'héritage dans votre programme?
+
+
 
 ## Utilisation de la généricité
 
