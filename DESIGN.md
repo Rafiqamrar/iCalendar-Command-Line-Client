@@ -25,6 +25,10 @@ Comment utilisez-vous l'héritage dans votre programme?
 
 Comment utilisez-vous la généricité dans votre programme?
 
+Nous utilisons la généricité principalement dans l'interface `OutputWriter` avec sa méthode `write(List<? extends CalElement> elements, OutputStream out)`. Le wildcard `? extends CalElement` permet d'accepter une liste contenant n'importe quel sous-type de `CalElement` (comme `Event` ou `Todo`), offrant ainsi une grande flexibilité pour traiter différents types d'éléments de calendrier avec une seule interface. Cette approche générique permet à nos trois implémentations (`IcsWriter`, `HtmlWriter`, `TextWriter`) de gérer uniformément tous les types d'éléments tout en préservant la sécurité du typage.
+
+
+
 ## Utilisation des exceptions
 
 Comment utilisez-vous les exceptions dans votre programme?
