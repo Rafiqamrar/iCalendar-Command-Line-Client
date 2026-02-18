@@ -80,6 +80,3 @@ src/
 - JUnit 5
 - JaCoCo
 
-## License
-
-Academic project — MUSIC 1A / Object-Oriented Programming (PG203)
