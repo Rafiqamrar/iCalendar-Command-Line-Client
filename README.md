@@ -1,62 +1,85 @@
----
-documentclass: book
-papersize: a4
-fontsize: 10pt
-header-includes: |
-    \usepackage{hyperref}
-    \hypersetup{
-        colorlinks = true,
-        linkbordercolor = {pink},
-    }
----
+# CliCal — iCalendar Command-Line Client
 
-# Projet de PG203
+A lightweight Java CLI application for parsing and displaying **iCalendar (ICS)** files. Filter events and todos by date or status, and export to multiple formats.
 
-Ce starter kit vous permet de démarrer un projet d'application en
-ligne de commande Java. La gestion du build est effectuée par l'outil
-Gradle. Deux exécutables sont fournis: `gradlew` pour Unix ou MacOS et
-`gradlew.bat` pour Windows.
+## Features
 
-Le starter kit vient avec:
+- **ICS Parsing** — Parse `VEVENT` and `VTODO` components from iCalendar files
+- **Flexible Filtering**
+  - Events: `-today`, `-tomorrow`, `-week`, `-from DATE`, `-to DATE`
+  - Todos: `-incomplete`, `-all`, `-completed`, `-inprocess`, `-needsaction`
+- **Multiple Output Formats** — Text, ICS, HTML
+- **File or Stdout** — Export to file with `-o FILE` or print to console
 
-- le framework [`JUnit 5`](https://junit.org/junit5/docs/current/user-guide/) pour gérer les tests;
+## Architecture
 
-- l'outil [`Jacoco`](https://www.jacoco.org/) pour la couverture du
-  code par les tests.
+```
+CLI → Parser → Calendar Model → Filters → OutputWriter
+```
 
-Le starter-kit contient un fichier
-`src/main/java/eirb/pg203/Main.java` qui contient un programme de
-démonstration. Ce programme récupère lit un fichier iCalendar contenant
-l'emploi du temps de I2 et affiche les 20 premières lignes sur
-la console.
+- **Polymorphism**: `OutputWriter` interface with `TextWriter`, `IcsWriter`, `HtmlWriter`
+- **Inheritance**: `CalElement` ← `Event`, `Todo`
+- **Delegation**: Modular components (parser, filters, writers)
 
-Le fichier `src/main/java/eirb/pg203/SampleTest.java` contient un
-petit exemple de test unitaire de la fonction qui charge les données.
-
-Voici comment effectuer les différentes commandes importantes.
-
-## Compilation
+## Build
 
 ```bash
 ./gradlew build
 ```
 
-## Lancement des tests
+## Usage
 
 ```bash
+# View today's events
+./clical path/to/calendar.ics events -today
+
+# View all incomplete todos
+./clical path/to/todos.ics todos -incomplete
+
+# Export events to HTML
+./clical path/to/calendar.ics events -week -html -o schedule.html
+
+# Export date range to ICS
+./clical path/to/calendar.ics events -from 20251111 -to 20251130 -ics -o output.ics
+```
+
+## Run with Gradle
+
+```bash
+./gradlew run --args="path/to/file.ics events -today"
+```
+
+## Testing
+
+```bash
+# Run tests
 ./gradlew test
-```
 
-## Génération du rapport de couverture
-
-```bash
+# Generate coverage report
 ./gradlew jacocoTestReport
+# Report: build/reports/jacoco/test/html/index.html
 ```
 
-Le rapport se trouve dans `build/reports/jacoco/test/html/index.html`.
-
-## Lancement du programme
+## Project Structure
 
 ```
-./gradlew run --args="arg1 arg2"
+src/
+├── main/java/          # Application source code
+│   ├── cli/            # Command-line parsing
+│   ├── parser/         # ICS file parsing
+│   ├── model/          # Calendar, Event, Todo
+│   ├── filters/        # Event and Todo filters
+│   └── output/         # Writers (Text, ICS, HTML)
+└── test/java/          # Unit tests
 ```
+
+## Technologies
+
+- Java 17+
+- Gradle
+- JUnit 5
+- JaCoCo
+
+## License
+
+Academic project — MUSIC 1A / Object-Oriented Programming (PG203)
